@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "homepage": "https://cred1747.github.io/chris-portfolio",
+  "homepage": "https://chrisreddish.com",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
