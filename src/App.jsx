@@ -5,6 +5,7 @@ import Projects from './pages/Projects'
 import Dashboards from './pages/Dashboards'
 import Research from './pages/Research'
 import About from './pages/About'
+import BourbonExplorer from './pages/BourbonExplorer'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/dashboards" element={<Dashboards />} />
         <Route path="/research" element={<Research />} />
         <Route path="/about" element={<About />} />
+        <Route path="/bourbon" element={<BourbonExplorer />} />
       </Routes>
     </Layout>
   )

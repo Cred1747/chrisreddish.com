@@ -1,4 +1,16 @@
-import { ExternalLink, Github, Calendar, GraduationCap } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { ExternalLink, Github, Calendar, GraduationCap, Sparkles } from 'lucide-react'
+
+const featuredProject = {
+  title: 'Bourbon Explorer',
+  category: 'Personal',
+  date: '2024',
+  description: 'An interactive data visualization app for exploring and comparing bourbons. Filter by price, ABV, rating, and distillery. Includes scatter plots, value analysis, and flavor profile breakdowns.',
+  technologies: ['React', 'Recharts', 'Tailwind CSS', 'Data Visualization'],
+  github: 'https://github.com/Cred1747/bourbonExplorer',
+  live: '/bourbon',
+  internal: true,
+}
 
 const projects = [
   {
@@ -70,6 +82,56 @@ export default function Projects() {
             A collection of professional, academic, and personal projects. 
             From municipal data pipelines to graduate research.
           </p>
+        </div>
+
+        {/* Featured Project */}
+        <div className="mb-12">
+          <div className="flex items-center gap-2 mb-4">
+            <Sparkles className="w-5 h-5 text-amber-400" />
+            <h2 className="text-lg font-semibold text-amber-400">Featured Project</h2>
+          </div>
+          <div className="bg-gradient-to-r from-amber-900/20 to-orange-900/20 rounded-xl border border-amber-700/50 p-6">
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+              <div className="flex-1">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="text-3xl">🥃</span>
+                  <h3 className="text-xl font-bold">{featuredProject.title}</h3>
+                  <span className="px-2 py-0.5 text-xs font-medium rounded bg-slate-600/50 text-slate-400">
+                    {featuredProject.category}
+                  </span>
+                </div>
+                <p className="text-slate-300 mb-4">{featuredProject.description}</p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {featuredProject.technologies.map(tech => (
+                    <span
+                      key={tech}
+                      className="px-2 py-1 text-xs font-medium bg-amber-900/30 text-amber-300 rounded"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex gap-4">
+                  <Link
+                    to={featuredProject.live}
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-amber-500 hover:bg-amber-600 text-black font-medium rounded-lg transition-colors"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    Try It Live
+                  </Link>
+                  <a
+                    href={featuredProject.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white font-medium rounded-lg transition-colors"
+                  >
+                    <Github className="w-4 h-4" />
+                    View Code
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Category filters - placeholder for future interactivity */}

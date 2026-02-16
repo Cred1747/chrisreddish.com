@@ -67,13 +67,15 @@ const education = [
     school: 'University of South Florida',
     period: 'Expected Spring 2027',
     gpa: '4.0',
+    status: 'In Progress',
   },
   {
     degree: 'Bachelor of Science in Information Science',
     school: 'University of South Florida',
     concentration: 'Data Science',
-    period: 'Expected December 2025',
+    period: 'Graduated December 2025',
     gpa: '4.0',
+    status: 'Completed',
   },
 ]
 
@@ -101,8 +103,8 @@ export default function About() {
               AI systems that let city officials query data in plain English.
             </p>
             <p className="text-lg text-slate-300 leading-relaxed mb-6">
-              I'm completing my Bachelor's in Information Science (Data Science concentration) 
-              while simultaneously pursuing a Master's in Data Intelligence—both at USF with 
+              I recently graduated with my Bachelor's in Information Science (Data Science concentration) 
+              and am now pursuing my Master's in Data Intelligence—both at USF with 
               a 4.0 GPA. My research at USF's Big Data Analytics Lab focuses on NLP and 
               stance detection in social media text.
             </p>
@@ -202,7 +204,7 @@ export default function About() {
                 {edu.concentration && (
                   <p className="text-slate-500 text-sm">Concentration: {edu.concentration}</p>
                 )}
-                <p className="text-slate-500 text-sm">{edu.period}</p>
+                <p className={`text-sm ${edu.status === 'Completed' ? 'text-accent-400 font-medium' : 'text-slate-500'}`}>{edu.period}</p>
               </div>
             ))}
           </div>
