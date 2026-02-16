@@ -6,6 +6,7 @@ import Dashboards from './pages/Dashboards'
 import Research from './pages/Research'
 import About from './pages/About'
 import BourbonExplorer from './pages/BourbonExplorer'
+import BertExplorer from './pages/BertExplorer'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/research" element={<Research />} />
         <Route path="/about" element={<About />} />
         <Route path="/bourbon" element={<BourbonExplorer />} />
+        <Route path="/bert" element={<BertExplorer />} />
       </Routes>
     </Layout>
   )

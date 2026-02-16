@@ -7,6 +7,7 @@ const navLinks = [
   { path: '/dashboards', label: 'Dashboards' },
   { path: '/projects', label: 'Projects' },
   { path: '/bourbon', label: 'Bourbon Explorer' },
+  { path: '/bert', label: 'BERTopic Explorer' },
   { path: '/research', label: 'Research' },
   { path: '/about', label: 'About' },
 ]
