@@ -9,6 +9,7 @@ import {
   Cloud,
   Code,
   Users,
+  ExternalLink,
 } from 'lucide-react'
 
 const skills = [
@@ -76,6 +77,7 @@ const education = [
     period: 'Graduated December 2025',
     gpa: '4.0',
     status: 'Completed',
+    diplomaUrl: '/USF_BS_Diploma_Christopher_Reddish.pdf',
   },
 ]
 
@@ -205,6 +207,17 @@ export default function About() {
                   <p className="text-slate-500 text-sm">Concentration: {edu.concentration}</p>
                 )}
                 <p className={`text-sm ${edu.status === 'Completed' ? 'text-accent-400 font-medium' : 'text-slate-500'}`}>{edu.period}</p>
+                {edu.diplomaUrl && (
+                  <a
+                    href={edu.diplomaUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 mt-2 text-xs text-primary-400 hover:text-primary-300 transition-colors"
+                  >
+                    <ExternalLink className="w-3 h-3" />
+                    View Digital Diploma
+                  </a>
+                )}
               </div>
             ))}
           </div>
@@ -233,14 +246,14 @@ export default function About() {
             >
               LinkedIn
             </a>
-            {/* TODO: Add actual resume PDF */}
-            <button
+            <a
+              href="/Christopher_Reddish_Resume.pdf"
+              download
               className="px-6 py-3 border border-slate-600 hover:border-slate-500 text-slate-300 hover:text-white font-medium rounded-lg transition-colors flex items-center gap-2"
-              disabled
             >
               <Download className="w-4 h-4" />
-              Resume (Coming Soon)
-            </button>
+              Download Resume
+            </a>
           </div>
         </section>
       </div>

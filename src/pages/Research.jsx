@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { FileText, Users, ExternalLink, BookOpen, Award, Newspaper } from 'lucide-react'
 
 const publications = [
@@ -129,16 +130,27 @@ export default function Research() {
 
               <div className="flex flex-wrap gap-3">
                 {pub.links.map((link, j) => (
-                  <a
-                    key={j}
-                    href={link.url}
-                    target={link.url.startsWith('http') ? '_blank' : undefined}
-                    rel={link.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="flex items-center gap-2 px-4 py-2 bg-primary-500/20 hover:bg-primary-500/30 text-primary-400 rounded-lg text-sm transition-colors"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                    {link.label}
-                  </a>
+                  link.url.startsWith('http') ? (
+                    <a
+                      key={j}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2 bg-primary-500/20 hover:bg-primary-500/30 text-primary-400 rounded-lg text-sm transition-colors"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      key={j}
+                      to={link.url}
+                      className="flex items-center gap-2 px-4 py-2 bg-primary-500/20 hover:bg-primary-500/30 text-primary-400 rounded-lg text-sm transition-colors"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      {link.label}
+                    </Link>
+                  )
                 ))}
               </div>
             </div>

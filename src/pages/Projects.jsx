@@ -224,16 +224,16 @@ export default function Projects() {
           <div className="flex items-start gap-4">
             <GraduationCap className="w-8 h-8 text-primary-400 flex-shrink-0 mt-1" />
             <div>
-              <h3 className="text-lg font-semibold mb-2">Currently Studying</h3>
+              <h3 className="text-lg font-semibold mb-2">Education</h3>
               <p className="text-slate-400 mb-4">
-                I'm completing my Bachelor's in Information Science (Data Science concentration) 
-                at USF while simultaneously pursuing a Master's in Data Intelligence. 
+                I recently graduated with my Bachelor's in Information Science (Data Science concentration) 
+                from USF and am now pursuing my Master's in Data Intelligence. 
                 Both programs maintain a 4.0 GPA.
               </p>
               <div className="flex flex-wrap gap-4 text-sm">
                 <div>
-                  <span className="text-slate-500">B.S. Graduation:</span>
-                  <span className="text-slate-300 ml-2">December 2025</span>
+                  <span className="text-slate-500">B.S. Graduated:</span>
+                  <span className="text-accent-400 font-medium ml-2">December 2025 ✓</span>
                 </div>
                 <div>
                   <span className="text-slate-500">M.S. Expected:</span>
