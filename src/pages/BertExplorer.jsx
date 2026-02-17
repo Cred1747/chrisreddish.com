@@ -7,12 +7,11 @@ import {
   MessageSquare,
   Calendar,
   Hash,
-  Sun,
-  Moon,
   Loader2,
   BarChart3,
   PieChart as PieChartIcon
 } from 'lucide-react'
+import { useTheme } from '../context/ThemeContext'
 import {
   BarChart,
   Bar,
@@ -60,15 +59,16 @@ const TOPIC_COLORS = [
 ]
 
 export default function BertExplorer() {
+  // Use global theme
+  const { theme } = useTheme()
+  
   // State
   const [model, setModel] = useState('LM')
   const [stance, setStance] = useState('negative')
   const [kValue, setKValue] = useState(8)
-  const [theme, setTheme] = useState('dark')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [viewMode, setViewMode] = useState('bar') // 'bar' or 'sunburst'
-  
   
   // Data state
   const [documentData, setDocumentData] = useState([])
@@ -395,13 +395,6 @@ export default function BertExplorer() {
                 </button>
               </div>
 
-              <button
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className={`p-2 rounded-lg transition-all ${theme === 'dark' ? 'bg-slate-700/50 text-cyan-400 hover:bg-slate-600/50' : 'bg-cyan-200 text-cyan-700 hover:bg-cyan-300'}`}
-              >
-                {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-              </button>
-              
               <a
                 href="https://github.com/Cred1747/BERTopic-Tweet-Explorer"
                 target="_blank"
@@ -567,12 +560,11 @@ export default function BertExplorer() {
                   insidetextorientation: 'radial'
                 }]}
                 layout={{
-                  margin: { t: 10, l: 10, r: 10, b: 10 },
+                  margin: { t: 40, l: 40, r: 40, b: 40 },
                   paper_bgcolor: 'rgba(0,0,0,0)',
                   plot_bgcolor: 'rgba(0,0,0,0)',
-                  font: { color: theme === 'dark' ? '#e2e8f0' : '#1e293b' },
-                  width: undefined,
-                  height: 500,
+                  font: { color: theme === 'dark' ? '#e2e8f0' : '#1e293b', size: 11 },
+                  height: 550,
                   autosize: true
                 }}
                 config={{
@@ -580,7 +572,7 @@ export default function BertExplorer() {
                   responsive: true
                 }}
                 onClick={handlePlotlySunburstClick}
-                style={{ width: '100%', height: '500px' }}
+                style={{ width: '100%', height: '550px' }}
                 useResizeHandler={true}
               />
               <p className={`text-center text-sm mt-2 ${t.textMuted}`}>
