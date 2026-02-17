@@ -41,7 +41,7 @@ const DATASETS = {
     UHC: { positive: 6, negative: 7 }
   },
   modelLabels: {
-    BTV3: 'Brian Thompson (BTV3)',
+    BTV3: 'Brian Thompson',
     LM: 'Luigi Mangione (LM)',
     UHC: 'United Healthcare (UHC)'
   }
@@ -316,15 +316,7 @@ export default function BertExplorer() {
               >
                 {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
-              <a
-                href="https://dash-interactive-viewer.onrender.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition-all ${theme === 'dark' ? 'bg-slate-700/50 hover:bg-slate-600/50 text-cyan-400' : 'bg-cyan-100 hover:bg-cyan-200 text-cyan-700'}`}
-              >
-                <ExternalLink className="w-4 h-4" />
-                <span className="hidden sm:inline">Dash Version</span>
-              </a>
+              
               <a
                 href="https://github.com/Cred1747/BERTopic-Tweet-Explorer"
                 target="_blank"
