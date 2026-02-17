@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, useCallback } from 'react'
 import { 
   ExternalLink, 
   Github, 
@@ -9,7 +9,9 @@ import {
   Hash,
   Sun,
   Moon,
-  Loader2
+  Loader2,
+  BarChart3,
+  PieChart as PieChartIcon
 } from 'lucide-react'
 import {
   BarChart,
@@ -19,7 +21,11 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Legend
+  Legend,
+  PieChart,
+  Pie,
+  Cell,
+  Sector
 } from 'recharts'
 import Papa from 'papaparse'
 
@@ -42,8 +48,8 @@ const DATASETS = {
   },
   modelLabels: {
     BTV3: 'Brian Thompson',
-    LM: 'Luigi Mangione (LM)',
-    UHC: 'United Healthcare (UHC)'
+    LM: 'Luigi Mangione',
+    UHC: 'United Healthcare'
   }
 }
 
@@ -64,6 +70,8 @@ export default function BertExplorer() {
   const [theme, setTheme] = useState('dark')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const [viewMode, setViewMode] = useState('bar') // 'bar' or 'sunburst'
+  const [activeIndex, setActiveIndex] = useState(null)
   
   // Data state
   const [documentData, setDocumentData] = useState([])
@@ -225,6 +233,89 @@ export default function BertExplorer() {
     return Array.from(keys)
   }, [chartData])
 
+  // Sunburst data - aggregate by topic
+  const sunburstData = useMemo(() => {
+    if (!documentData.length) return []
+    
+    const topicCounts = {}
+    documentData.forEach(row => {
+      if (row.Topic === undefined) return
+      const topic = row.Topic
+      topicCounts[topic] = (topicCounts[topic] || 0) + 1
+    })
+
+    return Object.entries(topicCounts)
+      .map(([topic, count]) => ({
+        topic: parseInt(topic),
+        name: topicLabels[topic] || `Topic ${topic}`,
+        value: count,
+        fill: TOPIC_COLORS[parseInt(topic) % TOPIC_COLORS.length]
+      }))
+      .sort((a, b) => b.value - a.value)
+  }, [documentData, topicLabels])
+
+  // Active shape for sunburst hover
+  const renderActiveShape = (props) => {
+    const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value } = props
+    
+    return (
+      <g>
+        <text x={cx} y={cy - 10} textAnchor="middle" fill={theme === 'dark' ? '#fff' : '#1e293b'} className="text-sm font-semibold">
+          {payload.name}
+        </text>
+        <text x={cx} y={cy + 15} textAnchor="middle" fill={theme === 'dark' ? '#94a3b8' : '#64748b'} className="text-xs">
+          {value.toLocaleString()} tweets ({(percent * 100).toFixed(1)}%)
+        </text>
+        <Sector
+          cx={cx}
+          cy={cy}
+          innerRadius={innerRadius}
+          outerRadius={outerRadius + 10}
+          startAngle={startAngle}
+          endAngle={endAngle}
+          fill={fill}
+        />
+        <Sector
+          cx={cx}
+          cy={cy}
+          startAngle={startAngle}
+          endAngle={endAngle}
+          innerRadius={outerRadius + 12}
+          outerRadius={outerRadius + 16}
+          fill={fill}
+        />
+      </g>
+    )
+  }
+
+  const onPieEnter = useCallback((_, index) => {
+    setActiveIndex(index)
+  }, [])
+
+  const onPieLeave = useCallback(() => {
+    setActiveIndex(null)
+  }, [])
+
+  // Handle sunburst click
+  const handleSunburstClick = (data) => {
+    if (!data) return
+    const topic = data.topic
+    
+    const tweets = documentData.filter(row => row.Topic === topic)
+    const tweetTexts = tweets
+      .map(t => t.Document || t.original_text)
+      .filter(Boolean)
+      .slice(0, 100)
+
+    setSelectedTweets(tweetTexts)
+    setSelectedInfo({
+      date: 'All dates',
+      topic,
+      label: data.name,
+      count: data.value
+    })
+  }
+
   // Handle bar click
   const handleBarClick = (data, topicLabel) => {
     if (!data) return
@@ -310,6 +401,28 @@ export default function BertExplorer() {
               </p>
             </div>
             <div className="flex items-center gap-2">
+              {/* View Mode Toggle */}
+              <div className={`flex rounded-lg overflow-hidden border ${theme === 'dark' ? 'border-slate-600' : 'border-cyan-300'}`}>
+                <button
+                  onClick={() => setViewMode('bar')}
+                  className={`flex items-center gap-1 px-3 py-2 text-sm transition-all ${viewMode === 'bar' 
+                    ? (theme === 'dark' ? 'bg-cyan-500 text-white' : 'bg-cyan-500 text-white')
+                    : (theme === 'dark' ? 'bg-slate-700/50 text-slate-400 hover:text-white' : 'bg-white text-slate-600 hover:bg-cyan-50')}`}
+                >
+                  <BarChart3 className="w-4 h-4" />
+                  <span className="hidden sm:inline">Timeline</span>
+                </button>
+                <button
+                  onClick={() => setViewMode('sunburst')}
+                  className={`flex items-center gap-1 px-3 py-2 text-sm transition-all ${viewMode === 'sunburst' 
+                    ? (theme === 'dark' ? 'bg-cyan-500 text-white' : 'bg-cyan-500 text-white')
+                    : (theme === 'dark' ? 'bg-slate-700/50 text-slate-400 hover:text-white' : 'bg-white text-slate-600 hover:bg-cyan-50')}`}
+                >
+                  <PieChartIcon className="w-4 h-4" />
+                  <span className="hidden sm:inline">Sunburst</span>
+                </button>
+              </div>
+
               <button
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                 className={`p-2 rounded-lg transition-all ${theme === 'dark' ? 'bg-slate-700/50 text-cyan-400 hover:bg-slate-600/50' : 'bg-cyan-200 text-cyan-700 hover:bg-cyan-300'}`}
@@ -422,7 +535,7 @@ export default function BertExplorer() {
         {/* Chart */}
         <div className={`backdrop-blur-md rounded-xl border p-6 shadow-xl mb-6 ${t.card} ${t.border}`}>
           <h3 className={`text-lg font-semibold mb-4 ${t.text}`}>
-            Topic Proportions — {DATASETS.modelLabels[model]}, {stance}, k={kValue}
+            {viewMode === 'bar' ? 'Topic Proportions Over Time' : 'Topic Distribution (Sunburst)'} — {DATASETS.modelLabels[model]}, {stance}, k={kValue}
           </h3>
           
           {loading ? (
@@ -435,7 +548,7 @@ export default function BertExplorer() {
               <p className="mb-4">Error: {error}</p>
               <p className={`text-sm ${t.textMuted}`}>This model/stance/k combination may not be available.</p>
             </div>
-          ) : (
+          ) : viewMode === 'bar' ? (
             <ResponsiveContainer width="100%" height={450}>
               <BarChart data={chartData} margin={{ top: 20, right: 30, bottom: 60, left: 40 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke={theme === 'dark' ? '#374151' : '#e5e7eb'} />
@@ -466,10 +579,56 @@ export default function BertExplorer() {
                 ))}
               </BarChart>
             </ResponsiveContainer>
+          ) : (
+            <div className="flex flex-col lg:flex-row items-center gap-6">
+              <ResponsiveContainer width="100%" height={450}>
+                <PieChart>
+                  <Pie
+                    activeIndex={activeIndex}
+                    activeShape={renderActiveShape}
+                    data={sunburstData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={80}
+                    outerRadius={160}
+                    paddingAngle={2}
+                    dataKey="value"
+                    onMouseEnter={onPieEnter}
+                    onMouseLeave={onPieLeave}
+                    onClick={(_, index) => handleSunburstClick(sunburstData[index])}
+                    cursor="pointer"
+                  >
+                    {sunburstData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.fill} />
+                    ))}
+                  </Pie>
+                </PieChart>
+              </ResponsiveContainer>
+              
+              {/* Legend for sunburst */}
+              <div className="w-full lg:w-64 max-h-96 overflow-y-auto">
+                <h4 className={`text-sm font-semibold mb-3 ${t.text}`}>Topics</h4>
+                <div className="space-y-2">
+                  {sunburstData.map((entry, index) => (
+                    <div 
+                      key={index}
+                      className={`flex items-center gap-2 p-2 rounded cursor-pointer transition-colors ${theme === 'dark' ? 'hover:bg-slate-700/50' : 'hover:bg-cyan-100'}`}
+                      onClick={() => handleSunburstClick(entry)}
+                    >
+                      <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: entry.fill }} />
+                      <span className={`text-xs ${t.text} truncate`}>{entry.name}</span>
+                      <span className={`text-xs ${t.textMuted} ml-auto`}>{entry.value.toLocaleString()}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           )}
           
           <p className={`text-sm mt-4 ${t.textMuted}`}>
-            💡 Click any bar segment to view tweets for that topic on that date
+            💡 {viewMode === 'bar' 
+              ? 'Click any bar segment to view tweets for that topic on that date'
+              : 'Hover over segments to see details, click to view tweets for that topic'}
           </p>
         </div>
 
