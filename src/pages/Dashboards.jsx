@@ -1,11 +1,11 @@
-import { ExternalLink, Play, Image as ImageIcon } from 'lucide-react'
+import { Play, Lock, Building2, Database, Brain, BarChart3 } from 'lucide-react'
 import DemoChart from '../components/DemoChart'
 
 const dashboards = [
   {
     title: 'Portland Water Bureau - Smart Discount Analysis',
     description: 'RCT analysis evaluating the effectiveness of discount programs on payment behavior. Includes demographic equity analysis, payment timing patterns, and program impact metrics.',
-    type: 'live',
+    icon: BarChart3,
     tags: ['Looker', 'BigQuery', 'LookML', 'RCT Analysis', 'Equity Analytics'],
     highlights: [
       'Control vs Treatment group comparison',
@@ -17,7 +17,7 @@ const dashboards = [
   {
     title: 'Chicago Parking Citation Analytics',
     description: 'Comprehensive analysis of parking enforcement patterns, violation types, and revenue trends across Chicago neighborhoods.',
-    type: 'screenshot',
+    icon: Building2,
     tags: ['Data Pipeline', 'Visualization', 'Policy Analysis', 'BigQuery'],
     highlights: [
       'Citation volume trends over time',
@@ -29,7 +29,7 @@ const dashboards = [
   {
     title: 'Municipal Tax Lien Dashboard',
     description: 'Tracking and analysis of tax lien portfolios, including aging analysis, collection rates, and property value correlations.',
-    type: 'screenshot',
+    icon: Database,
     tags: ['Financial Analytics', 'Looker', 'Municipal Finance'],
     highlights: [
       'Lien aging buckets',
@@ -41,7 +41,7 @@ const dashboards = [
   {
     title: 'Conversational Analytics Agent',
     description: 'AI-powered natural language interface for querying municipal data. Built with 120+ Golden Queries for common analytical questions.',
-    type: 'demo',
+    icon: Brain,
     tags: ['AI', 'LLM', 'Golden Queries', 'Natural Language'],
     highlights: [
       'Natural language to SQL conversion',
@@ -58,10 +58,10 @@ export default function Dashboards() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <div className="mb-12">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-4">Dashboards & Visualizations</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold mb-4">Dashboards & Analytics</h1>
           <p className="text-slate-400 max-w-2xl">
-            Interactive dashboards and analytics tools I've built for municipal clients. 
-            These demos showcase the types of insights I deliver using Looker, BigQuery, and React.
+            I build interactive dashboards and analytics tools for municipal clients using Looker, BigQuery, and custom React applications. 
+            Here's an overview of the types of solutions I deliver.
           </p>
         </div>
 
@@ -78,83 +78,67 @@ export default function Dashboards() {
 
         {/* Dashboard Cards */}
         <section>
-          <h2 className="text-xl font-semibold mb-6">Project Showcases</h2>
-          <div className="grid gap-8">
+          <h2 className="text-xl font-semibold mb-6">Client Projects</h2>
+          <div className="grid gap-6">
             {dashboards.map((dashboard, i) => (
               <div
                 key={i}
-                className="bg-slate-800/50 rounded-xl border border-slate-700 overflow-hidden"
+                className="bg-slate-800/50 rounded-xl border border-slate-700 p-6 sm:p-8"
               >
-                <div className="p-6 sm:p-8">
-                  <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
-                    <div>
-                      <div className="flex items-center gap-2 mb-2">
-                        {dashboard.type === 'live' && (
-                          <span className="px-2 py-0.5 text-xs font-medium bg-accent-500/20 text-accent-400 rounded">
-                            Live Data
-                          </span>
-                        )}
-                        {dashboard.type === 'demo' && (
-                          <span className="px-2 py-0.5 text-xs font-medium bg-primary-500/20 text-primary-400 rounded">
-                            Demo Available
-                          </span>
-                        )}
-                        {dashboard.type === 'screenshot' && (
-                          <span className="px-2 py-0.5 text-xs font-medium bg-slate-600/50 text-slate-400 rounded">
-                            Screenshots
-                          </span>
-                        )}
-                      </div>
-                      <h3 className="text-xl font-semibold">{dashboard.title}</h3>
+                <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-primary-500/20 rounded-lg">
+                      <dashboard.icon className="w-6 h-6 text-primary-400" />
                     </div>
-                  </div>
-
-                  <p className="text-slate-400 mb-4">{dashboard.description}</p>
-
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {dashboard.tags.map(tag => (
-                      <span
-                        key={tag}
-                        className="px-2 py-1 text-xs font-medium bg-slate-700/50 text-slate-300 rounded"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="border-t border-slate-700 pt-4">
-                    <h4 className="text-sm font-medium text-slate-300 mb-2">Key Features</h4>
-                    <ul className="grid sm:grid-cols-2 gap-2">
-                      {dashboard.highlights.map((highlight, j) => (
-                        <li key={j} className="text-sm text-slate-400 flex items-center gap-2">
-                          <span className="w-1.5 h-1.5 bg-primary-400 rounded-full" />
-                          {highlight}
-                        </li>
-                      ))}
-                    </ul>
+                    <h3 className="text-xl font-semibold">{dashboard.title}</h3>
                   </div>
                 </div>
 
-                {/* Placeholder for screenshot */}
-                <div className="bg-slate-900/50 border-t border-slate-700 p-8 flex items-center justify-center">
-                  <div className="text-center text-slate-500">
-                    <ImageIcon className="w-12 h-12 mx-auto mb-2 opacity-50" />
-                    <p className="text-sm">Dashboard screenshot coming soon</p>
-                    <p className="text-xs mt-1">Replace with actual Looker screenshots</p>
-                  </div>
+                <p className="text-slate-400 mb-4">{dashboard.description}</p>
+
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {dashboard.tags.map(tag => (
+                    <span
+                      key={tag}
+                      className="px-2 py-1 text-xs font-medium bg-slate-700/50 text-slate-300 rounded"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="border-t border-slate-700 pt-4">
+                  <h4 className="text-sm font-medium text-slate-300 mb-2">Key Features</h4>
+                  <ul className="grid sm:grid-cols-2 gap-2">
+                    {dashboard.highlights.map((highlight, j) => (
+                      <li key={j} className="text-sm text-slate-400 flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 bg-primary-400 rounded-full" />
+                        {highlight}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Note about confidentiality */}
-        <div className="mt-12 p-4 bg-slate-800/30 rounded-lg border border-slate-700">
-          <p className="text-sm text-slate-400">
-            <strong className="text-slate-300">Note:</strong> Some dashboard details are simplified 
-            or use sample data to protect client confidentiality. Actual implementations include 
-            additional security, data validation, and client-specific customizations.
-          </p>
+        {/* Confidentiality Note */}
+        <div className="mt-12 p-6 bg-slate-800/30 rounded-xl border border-slate-700">
+          <div className="flex items-start gap-4">
+            <div className="p-2 bg-slate-700/50 rounded-lg">
+              <Lock className="w-5 h-5 text-slate-400" />
+            </div>
+            <div>
+              <h3 className="font-medium text-slate-200 mb-1">Client Confidentiality</h3>
+              <p className="text-sm text-slate-400">
+                Due to client privacy agreements and data sensitivity, I'm unable to share screenshots 
+                or live demos of production dashboards. The descriptions above reflect the types of 
+                analytics solutions I build. Feel free to reach out if you'd like to discuss my 
+                approach or see sample work.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
