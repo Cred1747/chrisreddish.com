@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useCallback } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { 
   ExternalLink, 
   Github, 
@@ -21,13 +21,10 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Legend,
-  PieChart,
-  Pie,
-  Cell,
-  Sector
+  Legend
 } from 'recharts'
 import Papa from 'papaparse'
+import Plot from 'react-plotly.js'
 
 // GitHub raw URL base for data files
 const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/Cred1747/BERTopic-Tweet-Explorer/main/data'
@@ -71,7 +68,7 @@ export default function BertExplorer() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [viewMode, setViewMode] = useState('bar') // 'bar' or 'sunburst'
-  const [activeIndex, setActiveIndex] = useState(null)
+  
   
   // Data state
   const [documentData, setDocumentData] = useState([])
@@ -233,10 +230,11 @@ export default function BertExplorer() {
     return Array.from(keys)
   }, [chartData])
 
-  // Sunburst data - aggregate by topic
-  const sunburstData = useMemo(() => {
-    if (!documentData.length) return []
+  // Sunburst data for Plotly - hierarchical format
+  const sunburstPlotData = useMemo(() => {
+    if (!documentData.length) return { labels: [], ids: [], parents: [], values: [], colors: [] }
     
+    // Build hierarchical structure: Root -> Stance (current) -> Topics
     const topicCounts = {}
     documentData.forEach(row => {
       if (row.Topic === undefined) return
@@ -244,63 +242,37 @@ export default function BertExplorer() {
       topicCounts[topic] = (topicCounts[topic] || 0) + 1
     })
 
-    return Object.entries(topicCounts)
-      .map(([topic, count]) => ({
-        topic: parseInt(topic),
-        name: topicLabels[topic] || `Topic ${topic}`,
-        value: count,
-        fill: TOPIC_COLORS[parseInt(topic) % TOPIC_COLORS.length]
-      }))
-      .sort((a, b) => b.value - a.value)
-  }, [documentData, topicLabels])
+    const labels = [stance.charAt(0).toUpperCase() + stance.slice(1)] // Root: current stance
+    const ids = [stance]
+    const parents = ['']
+    const values = [documentData.length]
+    const colors = [stance === 'positive' ? '#10b981' : '#ef4444']
 
-  // Active shape for sunburst hover
-  const renderActiveShape = (props) => {
-    const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value } = props
+    // Add topics
+    Object.entries(topicCounts).forEach(([topic, count]) => {
+      const topicLabel = topicLabels[topic] || `Topic ${topic}`
+      labels.push(topicLabel)
+      ids.push(`${stance}_${topic}`)
+      parents.push(stance)
+      values.push(count)
+      colors.push(TOPIC_COLORS[parseInt(topic) % TOPIC_COLORS.length])
+    })
+
+    return { labels, ids, parents, values, colors }
+  }, [documentData, topicLabels, stance])
+
+  // Handle Plotly sunburst click
+  const handlePlotlySunburstClick = (event) => {
+    if (!event?.points?.[0]) return
+    const point = event.points[0]
     
-    return (
-      <g>
-        <text x={cx} y={cy - 10} textAnchor="middle" fill={theme === 'dark' ? '#fff' : '#1e293b'} className="text-sm font-semibold">
-          {payload.name}
-        </text>
-        <text x={cx} y={cy + 15} textAnchor="middle" fill={theme === 'dark' ? '#94a3b8' : '#64748b'} className="text-xs">
-          {value.toLocaleString()} tweets ({(percent * 100).toFixed(1)}%)
-        </text>
-        <Sector
-          cx={cx}
-          cy={cy}
-          innerRadius={innerRadius}
-          outerRadius={outerRadius + 10}
-          startAngle={startAngle}
-          endAngle={endAngle}
-          fill={fill}
-        />
-        <Sector
-          cx={cx}
-          cy={cy}
-          startAngle={startAngle}
-          endAngle={endAngle}
-          innerRadius={outerRadius + 12}
-          outerRadius={outerRadius + 16}
-          fill={fill}
-        />
-      </g>
-    )
-  }
-
-  const onPieEnter = useCallback((_, index) => {
-    setActiveIndex(index)
-  }, [])
-
-  const onPieLeave = useCallback(() => {
-    setActiveIndex(null)
-  }, [])
-
-  // Handle sunburst click
-  const handleSunburstClick = (data) => {
-    if (!data) return
-    const topic = data.topic
+    // Extract topic number from the id (format: "stance_topicNum")
+    const clickedId = point.id
+    if (!clickedId.includes('_')) return // Clicked on root
     
+    const topic = parseInt(clickedId.split('_')[1])
+    if (isNaN(topic)) return
+
     const tweets = documentData.filter(row => row.Topic === topic)
     const tweetTexts = tweets
       .map(t => t.Document || t.original_text)
@@ -311,8 +283,8 @@ export default function BertExplorer() {
     setSelectedInfo({
       date: 'All dates',
       topic,
-      label: data.name,
-      count: data.value
+      label: point.label,
+      count: point.value
     })
   }
 
@@ -580,48 +552,40 @@ export default function BertExplorer() {
               </BarChart>
             </ResponsiveContainer>
           ) : (
-            <div className="flex flex-col lg:flex-row items-center gap-6">
-              <ResponsiveContainer width="100%" height={450}>
-                <PieChart>
-                  <Pie
-                    activeIndex={activeIndex}
-                    activeShape={renderActiveShape}
-                    data={sunburstData}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={80}
-                    outerRadius={160}
-                    paddingAngle={2}
-                    dataKey="value"
-                    onMouseEnter={onPieEnter}
-                    onMouseLeave={onPieLeave}
-                    onClick={(_, index) => handleSunburstClick(sunburstData[index])}
-                    cursor="pointer"
-                  >
-                    {sunburstData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.fill} />
-                    ))}
-                  </Pie>
-                </PieChart>
-              </ResponsiveContainer>
-              
-              {/* Legend for sunburst */}
-              <div className="w-full lg:w-64 max-h-96 overflow-y-auto">
-                <h4 className={`text-sm font-semibold mb-3 ${t.text}`}>Topics</h4>
-                <div className="space-y-2">
-                  {sunburstData.map((entry, index) => (
-                    <div 
-                      key={index}
-                      className={`flex items-center gap-2 p-2 rounded cursor-pointer transition-colors ${theme === 'dark' ? 'hover:bg-slate-700/50' : 'hover:bg-cyan-100'}`}
-                      onClick={() => handleSunburstClick(entry)}
-                    >
-                      <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: entry.fill }} />
-                      <span className={`text-xs ${t.text} truncate`}>{entry.name}</span>
-                      <span className={`text-xs ${t.textMuted} ml-auto`}>{entry.value.toLocaleString()}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            <div className="w-full">
+              <Plot
+                data={[{
+                  type: 'sunburst',
+                  labels: sunburstPlotData.labels,
+                  ids: sunburstPlotData.ids,
+                  parents: sunburstPlotData.parents,
+                  values: sunburstPlotData.values,
+                  marker: { colors: sunburstPlotData.colors },
+                  branchvalues: 'total',
+                  hovertemplate: '<b>%{label}</b><br>Tweets: %{value}<br>%{percentParent:.1%} of parent<extra></extra>',
+                  textinfo: 'label+percent entry',
+                  insidetextorientation: 'radial'
+                }]}
+                layout={{
+                  margin: { t: 10, l: 10, r: 10, b: 10 },
+                  paper_bgcolor: 'rgba(0,0,0,0)',
+                  plot_bgcolor: 'rgba(0,0,0,0)',
+                  font: { color: theme === 'dark' ? '#e2e8f0' : '#1e293b' },
+                  width: undefined,
+                  height: 500,
+                  autosize: true
+                }}
+                config={{
+                  displayModeBar: false,
+                  responsive: true
+                }}
+                onClick={handlePlotlySunburstClick}
+                style={{ width: '100%', height: '500px' }}
+                useResizeHandler={true}
+              />
+              <p className={`text-center text-sm mt-2 ${t.textMuted}`}>
+                Click on a topic segment to view tweets. Click center to zoom out.
+              </p>
             </div>
           )}
           
