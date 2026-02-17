@@ -3,7 +3,7 @@ import { ArrowRight, Database, BarChart3, Brain, Code, Building2, ExternalLink, 
 
 const stats = [
   { value: '✓', label: 'Built AI Chatbots', icon: Brain },
-  { value: '1', label: 'Published Paper', icon: FileText, link: '/research' },
+  { value: '✓', label: 'Featured in USF Newsletter', icon: FileText, link: '/research' },
   { value: '50GB+', label: 'Data Pipelines', icon: Database },
   { value: '4.0', label: 'USF GPA', icon: TrendingUp },
 ]
