@@ -1,75 +1,74 @@
 import { Link } from 'react-router-dom'
-import { ExternalLink, Github, Calendar, GraduationCap, Sparkles } from 'lucide-react'
+import { ExternalLink, Github, Calendar, GraduationCap, Sparkles, Briefcase } from 'lucide-react'
 
-const featuredProject = {
-  title: 'Bourbon Explorer',
-  category: 'Personal',
-  date: '2024',
-  description: 'An interactive data visualization app for exploring and comparing bourbons. Filter by price, ABV, rating, and distillery. Includes scatter plots, value analysis, and flavor profile breakdowns.',
-  technologies: ['React', 'Recharts', 'Tailwind CSS', 'Data Visualization'],
-  github: 'https://github.com/Cred1747/bourbonExplorer',
-  live: '/bourbon',
-  internal: true,
-}
-
-const projects = [
+const featuredProjects = [
   {
-    title: 'Golden Queries System',
-    category: 'Work',
-    date: '2024-Present',
-    description: 'Developed 120+ pre-built analytical queries for municipal AI agents, enabling natural language data exploration for city officials without SQL knowledge.',
-    technologies: ['LookML', 'BigQuery', 'Python', 'Looker API'],
-    github: null,
-    live: null,
+    title: 'Bourbon Explorer',
+    emoji: '🥃',
+    category: 'Personal',
+    date: '2024',
+    description: 'An interactive data visualization app for exploring and comparing 1,350+ bourbons. Filter by price, ABV, rating, and distillery. Includes scatter plots, value analysis, and flavor profile breakdowns.',
+    technologies: ['React', 'Recharts', 'Tailwind CSS', 'Data Visualization'],
+    github: 'https://github.com/Cred1747/chrisreddish.com',
+    live: '/bourbon',
+    internal: true,
   },
   {
-    title: 'Utility Billing Fact Tables',
-    category: 'Work',
-    date: '2024',
-    description: 'Designed and implemented comprehensive fact tables for Portland Water Bureau, tracking customer accounts, payments, discounts, and service history.',
-    technologies: ['BigQuery', 'dbt', 'LookML', 'Data Modeling'],
-    github: null,
-    live: null,
+    title: 'BERTopic Tweet Explorer',
+    emoji: '🐦',
+    category: 'Research',
+    date: '2025',
+    description: 'Interactive visualization of BERTopic modeling results from my published FLAIRS research. Explore topic proportions over time, click to view tweets, and switch between models and stance classifications.',
+    technologies: ['React', 'Recharts', 'NLP', 'BERTopic', 'Papaparse'],
+    github: 'https://github.com/Cred1747/BERTopic-Tweet-Explorer',
+    live: '/bert',
+    internal: true,
+  },
+]
+
+const workProjects = [
+  {
+    title: 'AI Conversational Analytics Agents',
+    description: 'Developed and deployed two production chatbot applications on GCP Cloud Run enabling natural language queries against complex municipal datasets for Chicago and Portland officials.',
+    technologies: ['Python', 'JavaScript', 'GCP Cloud Run', 'Looker API', 'LLMs'],
+  },
+  {
+    title: 'Multi-City Parking Data Platform',
+    description: 'Built ETL pipelines integrating parking violation data across nine U.S. cities into a unified BigQuery warehouse with standardized schemas and interactive Looker dashboards.',
+    technologies: ['BigQuery', 'LookML', 'ETL', 'Data Modeling', 'Looker'],
+  },
+  {
+    title: 'Portland Water Bureau Analytics',
+    description: 'Designed analytical data models merging RCT assignments with billing and payment records. Built equity analysis dashboards and Smart Discount program effectiveness visualizations for policy stakeholders.',
+    technologies: ['BigQuery', 'LookML', 'Looker', 'RCT Analysis', 'Data Visualization'],
+  },
+  {
+    title: 'Golden Queries System',
+    description: 'Developed 120+ pre-built analytical queries for municipal AI agents, enabling natural language data exploration for city officials without SQL knowledge.',
+    technologies: ['LookML', 'BigQuery', 'Python', 'Looker API'],
+  },
+]
+
+const academicProjects = [
+  {
+    title: 'NLP Stance Detection Pipeline',
+    category: 'Research',
+    date: '2025',
+    description: 'Built ML pipeline processing 10,000+ social media records through multi-model classification (BERT, GPT-4, ensemble methods). Co-authored peer-reviewed publication at FLAIRS 2025.',
+    technologies: ['Python', 'BERT', 'GPT-4', 'scikit-learn', 'BERTopic'],
+    github: 'https://github.com/Cred1747/BERTopic-Tweet-Explorer',
+    live: '/bert',
   },
   {
     title: 'Predictive Analytics Project',
     category: 'School',
     date: 'Fall 2025',
-    description: 'Graduate coursework project applying machine learning models to real-world prediction problems. Focus on model selection, validation, and interpretation.',
+    description: 'Graduate coursework applying machine learning models to real-world prediction problems. Focus on model selection, cross-validation, and interpretation.',
     technologies: ['Python', 'scikit-learn', 'pandas', 'Jupyter'],
-    github: 'https://github.com/Cred1747',
-    live: null,
-  },
-  {
-    title: 'Object-Oriented Programming (COP5230)',
-    category: 'School',
-    date: 'Fall 2025',
-    description: 'Advanced OOP concepts in Python/Java, design patterns, and software architecture principles.',
-    technologies: ['Python', 'Java', 'Design Patterns', 'UML'],
-    github: 'https://github.com/Cred1747',
-    live: null,
-  },
-  {
-    title: 'Applied Data Intelligence (ESI6613)',
-    category: 'School',
-    date: '2025',
-    description: 'Graduate-level coursework covering advanced data analysis techniques, statistical modeling, and business intelligence applications.',
-    technologies: ['R', 'Python', 'Statistical Analysis', 'BI Tools'],
     github: null,
     live: null,
   },
-  {
-    title: 'Disco Elysium Companion App',
-    category: 'Personal',
-    date: '2024',
-    description: 'A personal project building a companion tool for the RPG Disco Elysium, tracking character builds and dialog choices.',
-    technologies: ['React', 'TypeScript', 'Tailwind CSS'],
-    github: 'https://github.com/Cred1747',
-    live: null,
-  },
 ]
-
-const categories = ['All', 'Work', 'School', 'Personal']
 
 export default function Projects() {
   return (
@@ -79,30 +78,33 @@ export default function Projects() {
         <div className="mb-12">
           <h1 className="text-3xl sm:text-4xl font-bold mb-4">Projects</h1>
           <p className="text-slate-400 max-w-2xl">
-            A collection of professional, academic, and personal projects. 
-            From municipal data pipelines to graduate research.
+            A collection of professional, academic, and personal projects — from municipal data pipelines to published NLP research.
           </p>
         </div>
 
-        {/* Featured Project */}
-        <div className="mb-12">
-          <div className="flex items-center gap-2 mb-4">
+        {/* Featured Projects with Live Demos */}
+        <section className="mb-16">
+          <div className="flex items-center gap-2 mb-6">
             <Sparkles className="w-5 h-5 text-amber-400" />
-            <h2 className="text-lg font-semibold text-amber-400">Featured Project</h2>
+            <h2 className="text-xl font-semibold text-amber-400">Featured Projects — Live Demos</h2>
           </div>
-          <div className="bg-gradient-to-r from-amber-900/20 to-orange-900/20 rounded-xl border border-amber-700/50 p-6">
-            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-              <div className="flex-1">
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            {featuredProjects.map((project, i) => (
+              <div 
+                key={i}
+                className="bg-gradient-to-r from-amber-900/20 to-orange-900/20 rounded-xl border border-amber-700/50 p-6"
+              >
                 <div className="flex items-center gap-3 mb-3">
-                  <span className="text-3xl">🥃</span>
-                  <h3 className="text-xl font-bold">{featuredProject.title}</h3>
-                  <span className="px-2 py-0.5 text-xs font-medium rounded bg-slate-600/50 text-slate-400">
-                    {featuredProject.category}
-                  </span>
+                  <span className="text-3xl">{project.emoji}</span>
+                  <div>
+                    <h3 className="text-xl font-bold">{project.title}</h3>
+                    <span className="text-xs text-amber-400">{project.category} • {project.date}</span>
+                  </div>
                 </div>
-                <p className="text-slate-300 mb-4">{featuredProject.description}</p>
+                <p className="text-slate-300 text-sm mb-4">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {featuredProject.technologies.map(tech => (
+                  {project.technologies.map(tech => (
                     <span
                       key={tech}
                       className="px-2 py-1 text-xs font-medium bg-amber-900/30 text-amber-300 rounded"
@@ -111,116 +113,134 @@ export default function Projects() {
                     </span>
                   ))}
                 </div>
-                <div className="flex gap-4">
+                <div className="flex gap-3">
                   <Link
-                    to={featuredProject.live}
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-amber-500 hover:bg-amber-600 text-black font-medium rounded-lg transition-colors"
+                    to={project.live}
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-amber-500 hover:bg-amber-600 text-black font-medium rounded-lg transition-colors text-sm"
                   >
                     <ExternalLink className="w-4 h-4" />
                     Try It Live
                   </Link>
                   <a
-                    href={featuredProject.github}
+                    href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white font-medium rounded-lg transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white font-medium rounded-lg transition-colors text-sm"
                   >
                     <Github className="w-4 h-4" />
-                    View Code
+                    Code
                   </a>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
-        </div>
+        </section>
 
-        {/* Category filters - placeholder for future interactivity */}
-        <div className="flex flex-wrap gap-2 mb-8">
-          {categories.map((cat, i) => (
-            <button
-              key={cat}
-              className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-                i === 0
-                  ? 'bg-primary-500 text-white'
-                  : 'bg-slate-800 text-slate-400 hover:text-white'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
+        {/* Work Projects */}
+        <section className="mb-16">
+          <div className="flex items-center gap-2 mb-6">
+            <Briefcase className="w-5 h-5 text-accent-400" />
+            <h2 className="text-xl font-semibold">Professional Work — Servus Municipal Finance Analytics</h2>
+          </div>
+          <p className="text-slate-500 text-sm mb-6">
+            Client work for municipal governments. Live demos and screenshots are confidential.
+          </p>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            {workProjects.map((project, i) => (
+              <div
+                key={i}
+                className="bg-slate-800/50 rounded-xl border border-slate-700 p-6"
+              >
+                <span className="inline-block px-2 py-0.5 text-xs font-medium rounded mb-2 bg-accent-500/20 text-accent-400">
+                  Work
+                </span>
+                <h3 className="text-lg font-semibold mb-2">{project.title}</h3>
+                <p className="text-slate-400 text-sm mb-4">{project.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {project.technologies.map(tech => (
+                    <span
+                      key={tech}
+                      className="px-2 py-1 text-xs font-medium bg-slate-700/50 text-slate-300 rounded"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
 
-        {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
-          {projects.map((project, i) => (
-            <div
-              key={i}
-              className="card-hover bg-slate-800/50 rounded-xl border border-slate-700 p-6"
-            >
-              <div className="flex items-start justify-between mb-3">
-                <div>
-                  <span className={`inline-block px-2 py-0.5 text-xs font-medium rounded mb-2 ${
-                    project.category === 'Work'
-                      ? 'bg-accent-500/20 text-accent-400'
-                      : project.category === 'School'
-                      ? 'bg-primary-500/20 text-primary-400'
-                      : 'bg-slate-600/50 text-slate-400'
+        {/* Academic/Research Projects */}
+        <section className="mb-16">
+          <div className="flex items-center gap-2 mb-6">
+            <GraduationCap className="w-5 h-5 text-primary-400" />
+            <h2 className="text-xl font-semibold">Academic & Research</h2>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            {academicProjects.map((project, i) => (
+              <div
+                key={i}
+                className="bg-slate-800/50 rounded-xl border border-slate-700 p-6"
+              >
+                <div className="flex items-start justify-between mb-2">
+                  <span className={`inline-block px-2 py-0.5 text-xs font-medium rounded ${
+                    project.category === 'Research' 
+                      ? 'bg-purple-500/20 text-purple-400'
+                      : 'bg-primary-500/20 text-primary-400'
                   }`}>
                     {project.category}
                   </span>
-                  <h3 className="text-lg font-semibold">{project.title}</h3>
-                </div>
-                <div className="flex items-center gap-2 text-slate-500 text-sm">
-                  <Calendar className="w-4 h-4" />
-                  {project.date}
-                </div>
-              </div>
-
-              <p className="text-slate-400 text-sm mb-4">{project.description}</p>
-
-              <div className="flex flex-wrap gap-2 mb-4">
-                {project.technologies.map(tech => (
-                  <span
-                    key={tech}
-                    className="px-2 py-1 text-xs font-medium bg-slate-700/50 text-slate-300 rounded"
-                  >
-                    {tech}
+                  <span className="text-slate-500 text-sm flex items-center gap-1">
+                    <Calendar className="w-4 h-4" />
+                    {project.date}
                   </span>
-                ))}
-              </div>
-
-              {(project.github || project.live) && (
-                <div className="flex gap-4 pt-4 border-t border-slate-700">
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm text-slate-400 hover:text-white flex items-center gap-1"
-                    >
-                      <Github className="w-4 h-4" />
-                      Code
-                    </a>
-                  )}
-                  {project.live && (
-                    <a
-                      href={project.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm text-slate-400 hover:text-white flex items-center gap-1"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      Live Demo
-                    </a>
-                  )}
                 </div>
-              )}
-            </div>
-          ))}
-        </div>
+                <h3 className="text-lg font-semibold mb-2">{project.title}</h3>
+                <p className="text-slate-400 text-sm mb-4">{project.description}</p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.technologies.map(tech => (
+                    <span
+                      key={tech}
+                      className="px-2 py-1 text-xs font-medium bg-slate-700/50 text-slate-300 rounded"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+                {(project.github || project.live) && (
+                  <div className="flex gap-4 pt-4 border-t border-slate-700">
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-slate-400 hover:text-white flex items-center gap-1"
+                      >
+                        <Github className="w-4 h-4" />
+                        Code
+                      </a>
+                    )}
+                    {project.live && (
+                      <Link
+                        to={project.live}
+                        className="text-sm text-slate-400 hover:text-white flex items-center gap-1"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        Live Demo
+                      </Link>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
 
         {/* Education Context */}
-        <div className="mt-16 p-6 bg-gradient-to-r from-primary-900/20 to-accent-900/20 rounded-xl border border-slate-700">
+        <div className="p-6 bg-gradient-to-r from-primary-900/20 to-accent-900/20 rounded-xl border border-slate-700">
           <div className="flex items-start gap-4">
             <GraduationCap className="w-8 h-8 text-primary-400 flex-shrink-0 mt-1" />
             <div>

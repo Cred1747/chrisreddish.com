@@ -177,7 +177,7 @@ export default function DemoChart() {
       </div>
 
       <p className="text-xs text-slate-500 mt-4 text-center">
-        Interactive demo — actual dashboards built in Looker
+        Sample visualization — see live demos in Projects
       </p>
     </div>
   )
