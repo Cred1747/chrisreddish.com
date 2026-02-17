@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, Database, BarChart3, Brain, Code, Building2, ExternalLink, Github, FileText, Users, TrendingUp, Layers } from 'lucide-react'
 
 const stats = [
-  { value: '9+', label: 'Cities Served', icon: Building2 },
-  { value: '120+', label: 'Golden Queries', icon: Database },
-  { value: '100M+', label: 'Rows Processed', icon: Layers },
-  { value: '4.0', label: 'GPA', icon: TrendingUp },
+  { value: '✓', label: 'Built AI Chatbots', icon: Brain },
+  { value: '1', label: 'Published Paper', icon: FileText, link: '/research' },
+  { value: '50GB+', label: 'Data Pipelines', icon: Database },
+  { value: '4.0', label: 'USF GPA', icon: TrendingUp },
 ]
 
 const highlights = [
@@ -98,16 +98,32 @@ export default function Home() {
             {/* Stats Grid */}
             <div className="lg:pl-8">
               <div className="grid grid-cols-2 gap-4">
-                {stats.map((stat, i) => (
-                  <div
-                    key={i}
-                    className="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-700 p-6 text-center hover:border-primary-500/50 transition-colors"
-                  >
-                    <stat.icon className="w-6 h-6 text-primary-400 mx-auto mb-2" />
-                    <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
-                    <div className="text-sm text-slate-400">{stat.label}</div>
-                  </div>
-                ))}
+                {stats.map((stat, i) => {
+                  const content = (
+                    <>
+                      <stat.icon className="w-6 h-6 text-primary-400 mx-auto mb-2" />
+                      <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
+                      <div className="text-sm text-slate-400">{stat.label}</div>
+                    </>
+                  )
+                  
+                  return stat.link ? (
+                    <Link
+                      key={i}
+                      to={stat.link}
+                      className="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-700 p-6 text-center hover:border-primary-500/50 hover:bg-slate-700/50 transition-colors"
+                    >
+                      {content}
+                    </Link>
+                  ) : (
+                    <div
+                      key={i}
+                      className="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-700 p-6 text-center"
+                    >
+                      {content}
+                    </div>
+                  )
+                })}
               </div>
               
               {/* Quick links */}
