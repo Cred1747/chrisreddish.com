@@ -3,7 +3,7 @@ import { ArrowRight, Database, BarChart3, Brain, Code, Building2, ExternalLink, 
 
 const stats = [
   { value: '✓', label: 'Built AI Chatbots', icon: Brain },
-  { value: '✓', label: 'Featured in USF Newsletter', icon: FileText, link: '/research' },
+  { value: '✓', label: 'Featured in USF Newsletter', icon: FileText, externalLink: 'https://www.usf.edu/arts-sciences/departments/information/documents/newsletter/si-newsletter-vol4-no1-compressed.pdf' },
   { value: '50GB+', label: 'Data Pipelines', icon: Database },
   { value: '4.0', label: 'USF GPA', icon: TrendingUp },
 ]
@@ -106,6 +106,20 @@ export default function Home() {
                       <div className="text-sm text-slate-400">{stat.label}</div>
                     </>
                   )
+                  
+                  if (stat.externalLink) {
+                    return (
+                      <a
+                        key={i}
+                        href={stat.externalLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-700 p-6 text-center hover:border-primary-500/50 hover:bg-slate-700/50 transition-colors"
+                      >
+                        {content}
+                      </a>
+                    )
+                  }
                   
                   return stat.link ? (
                     <Link
