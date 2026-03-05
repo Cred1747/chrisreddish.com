@@ -18,7 +18,7 @@ const highlights = [
   {
     icon: BarChart3,
     title: 'Dashboard Development',
-    description: 'Interactive dashboards serving cities like Portland, Chicago, and Seattle',
+    description: 'Interactive dashboards serving municipal clients across the U.S.',
   },
   {
     icon: Brain,

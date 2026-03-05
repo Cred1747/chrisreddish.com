@@ -42,15 +42,15 @@ const experience = [
     period: '2024 - Present',
     location: 'Remote',
     highlights: [
-      'Build data pipelines in GCP for municipal clients including Portland, Chicago, and Seattle',
+      'Build data pipelines in GCP for municipal clients across the U.S.',
       'Develop Looker dashboards with LookML for utility billing and parking analytics',
-      'Create AI conversational agents with 120+ Golden Queries for natural language data access',
-      'Lead equity analysis and RCT evaluation for Portland Water Bureau Smart Discount program',
+      'Create AI conversational agents with a Semantic Query Layer for natural language data access',
+      'Lead equity analysis and RCT evaluation for water utility discount programs',
     ],
   },
   {
-    title: 'Meat Manager',
-    company: 'Costco Wholesale',
+    title: 'Retail Operations Manager',
+    company: '14+ Years in Retail Management',
     period: '2010 - 2024',
     location: 'Tampa, FL',
     highlights: [
@@ -100,9 +100,9 @@ export default function About() {
             <p className="text-lg text-slate-300 leading-relaxed mb-6">
               I'm a Data & AI Analytics Engineer at Servus Municipal Finance Analytics, 
               where I build data pipelines, Looker dashboards, and AI agents that help 
-              cities make better decisions. My work spans utility billing analytics for 
-              Portland Water Bureau, parking citation analysis for Chicago, and conversational 
-              AI systems that let city officials query data in plain English.
+              cities make better decisions. My work spans water utility billing analytics, 
+              parking citation analysis, and conversational AI systems that let city 
+              officials query data in plain English.
             </p>
             <p className="text-lg text-slate-300 leading-relaxed mb-6">
               I recently graduated with my Bachelor's in Information Science (Data Science concentration) 
@@ -111,11 +111,10 @@ export default function About() {
               stance detection in social media text.
             </p>
             <p className="text-lg text-slate-300 leading-relaxed">
-              Before pivoting to data science, I spent 14+ years in retail management at 
-              Costco Wholesale. That experience gave me strong leadership skills, a 
-              results-driven mindset, and the ability to communicate complex information 
-              to diverse stakeholders—skills that translate directly to working with 
-              municipal clients.
+              Before pivoting to data science, I spent 14+ years in retail management. 
+              That experience gave me strong leadership skills, a results-driven mindset, 
+              and the ability to communicate complex information to diverse stakeholders — 
+              skills that translate directly to working with municipal clients.
             </p>
           </div>
         </section>

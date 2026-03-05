@@ -29,22 +29,22 @@ const featuredProjects = [
 const workProjects = [
   {
     title: 'AI Conversational Analytics Agents',
-    description: 'Developed and deployed two production chatbot applications on GCP Cloud Run enabling natural language queries against complex municipal datasets for Chicago and Portland officials.',
+    description: 'Developed and deployed production chatbot applications on GCP Cloud Run enabling natural language queries against complex municipal datasets for city officials.',
     technologies: ['Python', 'JavaScript', 'GCP Cloud Run', 'Looker API', 'LLMs'],
   },
   {
     title: 'Multi-City Parking Data Platform',
-    description: 'Built ETL pipelines integrating parking violation data across nine U.S. cities into a unified BigQuery warehouse with standardized schemas and interactive Looker dashboards.',
+    description: 'Built ETL pipelines integrating parking violation data across multiple U.S. cities into a unified BigQuery warehouse with standardized schemas and interactive Looker dashboards.',
     technologies: ['BigQuery', 'LookML', 'ETL', 'Data Modeling', 'Looker'],
   },
   {
-    title: 'Portland Water Bureau Analytics',
-    description: 'Designed analytical data models merging RCT assignments with billing and payment records. Built equity analysis dashboards and Smart Discount program effectiveness visualizations for policy stakeholders.',
+    title: 'Water Utility Billing & Equity Analytics',
+    description: 'Designed analytical data models merging RCT assignments with billing and payment records. Built equity analysis dashboards and discount program effectiveness visualizations for policy stakeholders.',
     technologies: ['BigQuery', 'LookML', 'Looker', 'RCT Analysis', 'Data Visualization'],
   },
   {
-    title: 'Golden Queries System',
-    description: 'Developed 120+ pre-built analytical queries for municipal AI agents, enabling natural language data exploration for city officials without SQL knowledge.',
+    title: 'Semantic Query Layer',
+    description: 'Developed pre-validated analytical query templates for municipal AI agents, enabling natural language data exploration for city officials without SQL knowledge.',
     technologies: ['LookML', 'BigQuery', 'Python', 'Looker API'],
   },
 ]
