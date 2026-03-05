@@ -4,22 +4,23 @@ import { motion } from 'framer-motion'
 const testimonials = [
   {
     id: 1,
-    testimonial: "It's fast, collaborative, and iterative—the closest thing to an applied analytics shop I've experienced at school. Beyond modeling, we emphasize validation, reproducibility, and communication. That cadence—ship, critique, refine—leveled up my data cleaning, modeling, and dashboarding skills far more than one-and-done class projects.",
-    author: "Chris Reddish, FLAIRS Conference Q&A",
-    subtitle: "Featured in USF School of Information Newsletter, Spring 2026",
+    testimonial: "It's fast, collaborative, and iterative, the closest thing to an applied analytics shop I've experienced at school. Beyond modeling, we emphasize validation, reproducibility, and communication. That cadence, ship, critique, refine, leveled up my data cleaning, modeling, and dashboarding skills far more than one and done class projects.",
+    author: "Chris Reddish",
+    subtitle: "USF School of Information Newsletter, Spring 2026",
     link: "https://www.usf.edu/arts-sciences/departments/information/documents/newsletter/si-newsletter-vol4-no1-compressed.pdf",
   },
   {
     id: 2,
-    testimonial: "Working with municipal data across 20+ jurisdictions taught me that the hardest part isn't the SQL or the pipeline. It's understanding what city officials actually need to make decisions, then building the analytics layer that gives them that answer in plain English.",
-    author: "Chris Reddish",
-    subtitle: "On building AI analytics agents for municipal clients",
+    testimonial: "Studied public discourse on X following the UnitedHealthcare CEO assassination, using LLMs and human annotation to detect stance toward Luigi Mangione. Contributed to prompt engineering for stance detection and developed interactive BERTopic visualizations.",
+    author: "Chris Reddish, Alina Hagen, Daniel Tafmizi, Loni Hagen, Ashley Fox, Nic DePaula",
+    subtitle: "38th International FLAIRS Conference, Daytona Beach, FL, May 2025",
+    link: "https://www.usf.edu/arts-sciences/departments/information/news/2025/38th-international-flairs-conference.aspx",
   },
   {
     id: 3,
-    testimonial: "I transitioned from 14 years of retail management into data science because I saw how much untapped potential there was in making data accessible to everyday decision makers. The leadership and communication skills from that experience are what set my technical work apart.",
+    testimonial: "Our research focuses on improving model accuracy for nuanced political and social discourse. We're currently extending our stance detection methodology to wildfire disaster communication and public trust analysis at USF's Big Data Analytics Lab.",
     author: "Chris Reddish",
-    subtitle: "On career transition into data science",
+    subtitle: "Ongoing NLP Research, USF Big Data Analytics Lab, Advisor: Prof. Loni Hagen",
   },
 ]
 
@@ -51,7 +52,7 @@ function TestimonialCard({ handleShuffle, testimonial, position, id, author, sub
         dragRef.current = 0
       }}
       transition={{ duration: 0.35 }}
-      className={`absolute left-0 top-0 grid h-[400px] w-[350px] select-none place-content-center space-y-5 rounded-2xl border border-slate-700/30 bg-slate-800/20 p-8 shadow-xl backdrop-blur-md ${
+      className={`absolute left-0 top-0 grid h-[420px] w-[350px] select-none place-content-center space-y-5 rounded-2xl border border-slate-700/30 bg-slate-800/20 p-8 shadow-xl backdrop-blur-md ${
         isFront ? "cursor-grab active:cursor-grabbing" : ""
       }`}
     >
@@ -93,7 +94,7 @@ export default function TestimonialCards() {
   }
 
   return (
-    <div className="relative h-[420px] w-[350px] -ml-[100px] md:-ml-[175px]">
+    <div className="relative h-[440px] w-[350px] -ml-[100px] md:-ml-[175px]">
       {testimonials.map((t, index) => (
         <TestimonialCard
           key={t.id}
