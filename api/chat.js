@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -43,14 +43,14 @@ export default async function handler(req, res) {
 
     if (!response.ok) {
       return res.status(200).json({
-        content: [{ type: 'text', text: `API error: ${data.error?.message || JSON.stringify(data)}` }]
+        content: [{ type: 'text', text: 'API error: ' + (data.error && data.error.message ? data.error.message : JSON.stringify(data)) }]
       });
     }
 
     return res.status(200).json(data);
   } catch (error) {
     return res.status(200).json({
-      content: [{ type: 'text', text: `Server error: ${error.message}` }]
+      content: [{ type: 'text', text: 'Server error: ' + error.message }]
     });
   }
-}
+};
