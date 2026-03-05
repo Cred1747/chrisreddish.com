@@ -33,6 +33,16 @@ const highlights = [
 
 const liveProjects = [
   {
+    title: 'Municipal Utility Analytics',
+    emoji: '🏛',
+    description: 'Interactive dashboard with a live AI chatbot — ask questions about water rates, electric reliability, and affordability using real EIA & Bluefield data',
+    tags: ['AI Chatbot', 'Claude API', 'Golden Queries', 'EIA Data', 'Recharts'],
+    link: '/utility',
+    github: 'https://github.com/Cred1747/chrisreddish.com',
+    highlight: true,
+    badge: 'NEW — Live AI Chatbot',
+  },
+  {
     title: 'BERTopic Tweet Explorer',
     emoji: '🐦',
     description: 'Interactive visualization from my published FLAIRS research — explore topic modeling results from 10K+ tweets',
@@ -40,6 +50,7 @@ const liveProjects = [
     link: '/bert',
     github: 'https://github.com/Cred1747/BERTopic-Tweet-Explorer',
     highlight: true,
+    badge: 'Featured — Published Research',
   },
   {
     title: 'Bourbon Explorer',
@@ -187,7 +198,7 @@ export default function Home() {
             </Link>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-3 gap-6">
             {liveProjects.map((project, i) => (
               <div
                 key={i}
@@ -202,8 +213,8 @@ export default function Home() {
                     <span className="text-3xl">{project.emoji}</span>
                     <div>
                       <h3 className="text-lg font-bold">{project.title}</h3>
-                      {project.highlight && (
-                        <span className="text-xs text-accent-400 font-medium">Featured — Published Research</span>
+                      {project.badge && (
+                        <span className="text-xs text-primary-400 font-medium">{project.badge}</span>
                       )}
                     </div>
                   </div>
