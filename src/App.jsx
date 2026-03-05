@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import { ThemeProvider } from './context/ThemeContext'
 import Layout from './components/Layout'
 import Home from './pages/Home'
@@ -25,6 +26,7 @@ function App() {
           <Route path="/utility" element={<UtilityDashboard />} />
         </Routes>
       </Layout>
+      <Analytics />
     </ThemeProvider>
   )
 }

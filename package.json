@@ -12,6 +12,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@vercel/analytics": "^1.6.1",
     "lucide-react": "^0.294.0",
     "papaparse": "^5.4.1",
     "plotly.js-dist-min": "^2.27.0",
