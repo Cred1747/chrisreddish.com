@@ -36,7 +36,7 @@ const liveProjects = [
     title: 'Municipal Utility Analytics',
     emoji: '🏛',
     description: 'Interactive dashboard with a live AI chatbot — ask questions about water rates, electric reliability, and affordability using real EIA & Bluefield data',
-    tags: ['AI Chatbot', 'Claude API', 'Golden Queries', 'EIA Data', 'Recharts'],
+    tags: ['AI Chatbot', 'Claude API', 'Semantic Query Layer', 'EIA Data', 'Recharts'],
     link: '/utility',
     github: 'https://github.com/Cred1747/chrisreddish.com',
     highlight: true,

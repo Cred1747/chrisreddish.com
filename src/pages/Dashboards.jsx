@@ -40,9 +40,9 @@ const dashboards = [
   },
   {
     title: 'AI Conversational Analytics Agent',
-    description: 'AI-powered natural language interface for querying municipal data. Uses a Golden Query semantic layer to ensure accurate, validated responses.',
+    description: 'AI-powered natural language interface for querying municipal data. Uses a Semantic Query Layer to ensure accurate, validated responses.',
     icon: Brain,
-    tags: ['AI', 'Claude API', 'Golden Queries', 'Natural Language'],
+    tags: ['AI', 'Claude API', 'Semantic Query Layer', 'Natural Language'],
     highlights: [
       'Natural language to structured query',
       'Pre-validated query templates',

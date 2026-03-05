@@ -24,7 +24,7 @@ TECHNICAL SKILLS:
 - Core: BigQuery, SQL, Python, Looker/LookML, GCP (Cloud Run, Cloud Functions, Cloud Build)
 - Frontend: React, JavaScript, Recharts, Tailwind CSS
 - Data: pandas, geopandas, ETL pipelines, data modeling (Bronze/Silver/Gold architecture)
-- AI/ML: Claude API, Golden Query pattern for AI agents, NLP (BERTopic, stance detection)
+- AI/ML: Claude API, Semantic Query Layer for AI agents, NLP (BERTopic, stance detection)
 - Other: Git, Docker, Vite, Vercel
 
 CURRENT COURSEWORK:
@@ -38,7 +38,7 @@ RESEARCH & PUBLICATIONS:
 - BERTopic tweet explorer visualization is live on this portfolio site
 
 PORTFOLIO PROJECTS (on this site):
-- Municipal Utility Analytics Suite (/utility) — interactive dashboard with live AI chatbot using Golden Query architecture, real EIA and Bluefield data
+- Municipal Utility Analytics Suite (/utility) — interactive dashboard with live AI chatbot using Semantic Query Layer, real EIA and Bluefield data
 - BERTopic Tweet Explorer (/bert) — interactive visualization of published NLP research
 - Bourbon Explorer (/bourbon) — data viz app with 1,350+ bourbons
 
