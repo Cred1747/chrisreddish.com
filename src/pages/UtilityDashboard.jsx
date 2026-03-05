@@ -100,10 +100,25 @@ const Bot = () => {
     if (!input.trim() || loading) return; const msg = input.trim(); setInput(""); setMsgs(p => [...p, { role: "user", content: msg }]); setLoading(true);
     const gq = matchGQ(msg);
     try {
-      const r = await fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ system: `You are an AI analytics assistant embedded in a Municipal Utility Analytics Dashboard built by Chris Reddish. ${gq ? `GOLDEN QUERY MATCHED: "${gq.desc}"\nSOURCE: ${gq.src}\nDATA:\n${gq.q()}\n\nUse this real data to answer. Cite the source. Be specific with numbers.` : "No Golden Query matched. Answer from general knowledge about utility metrics (SAIDI, SAIFI, CAIDI, water affordability, IEEE 1366, EPA guidelines). Note you're answering from general knowledge."} Keep responses concise (2-5 sentences). Use specific numbers when available. Be professional.`, messages: [{ role: "user", content: msg }] }) });
-      const d = await r.json(); const t = d.content?.filter(b => b.type === "text").map(b => b.text).join("\n") || "Error.";
-      setMsgs(p => [...p, { role: "assistant", content: t, gq }]);
-    } catch { setMsgs(p => [...p, { role: "assistant", content: gq ? `Golden Query: ${gq.desc} (${gq.src})\n\n${gq.q()}` : "API unavailable.", gq }]); }
+      const r = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          system: `You are an AI analytics assistant embedded in a Municipal Utility Analytics Dashboard built by Chris Reddish. ${gq ? `GOLDEN QUERY MATCHED: "${gq.desc}"\nSOURCE: ${gq.src}\nDATA:\n${gq.q()}\n\nUse this real data to answer the user's question. Cite the source. Be specific with numbers.` : "No Golden Query matched. Answer from general knowledge about utility metrics (SAIDI, SAIFI, CAIDI, water affordability, IEEE 1366, EPA guidelines). Note you're answering from general knowledge."} Keep responses concise (2-5 sentences). Use specific numbers when available. Be professional.`,
+          messages: [{ role: "user", content: msg }]
+        })
+      });
+      const d = await r.json();
+      let text = "No response received.";
+      if (d.content && Array.isArray(d.content)) {
+        text = d.content.filter(b => b.type === "text").map(b => b.text).join("\n") || "Empty response.";
+      } else if (d.error) {
+        text = `Error: ${typeof d.error === 'string' ? d.error : JSON.stringify(d.error)}`;
+      }
+      setMsgs(p => [...p, { role: "assistant", content: text, gq }]);
+    } catch (err) {
+      setMsgs(p => [...p, { role: "assistant", content: `Connection error: ${err.message}`, gq }]);
+    }
     setLoading(false);
   }, [input, loading]);
 
