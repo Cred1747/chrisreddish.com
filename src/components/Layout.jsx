@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, Github, Linkedin, Mail, Database, Sun, Moon } from 'lucide-react'
 import { useTheme } from '../context/ThemeContext'
+import ShaderBackground from './ShaderBackground'
 
 const navLinks = [
   { path: '/', label: 'Home' },
@@ -9,6 +10,7 @@ const navLinks = [
   { path: '/projects', label: 'Projects' },
   { path: '/bourbon', label: 'Bourbon Explorer' },
   { path: '/bert', label: 'BERTopic Explorer' },
+  { path: '/utility', label: 'Utility Analytics' },
   { path: '/research', label: 'Research' },
   { path: '/about', label: 'About' },
 ]
@@ -19,17 +21,17 @@ function Navbar() {
   const { theme, toggleTheme } = useTheme()
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-colors ${
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-colors ${
       theme === 'dark' 
-        ? 'bg-slate-900/80 border-slate-800' 
-        : 'bg-white/80 border-slate-200'
+        ? 'bg-[#16161e]/80 backdrop-blur-sm border-b border-white/5' 
+        : 'bg-white/80 backdrop-blur-md border-b border-slate-200'
     }`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 text-xl font-semibold">
-            <Database className="w-6 h-6 text-primary-400" />
-            <span className="gradient-text">Chris Reddish</span>
+          <Link to="/" className="flex items-center gap-2 text-lg font-semibold">
+            <span className="gradient-text">CR</span>
+            <span className={`hidden sm:inline text-sm font-normal ${theme === 'dark' ? 'text-white/50' : 'text-slate-500'}`}>Chris Reddish</span>
           </Link>
 
           {/* Desktop Nav */}
@@ -90,7 +92,7 @@ function Navbar() {
       {/* Mobile Nav */}
       {isOpen && (
         <div className={`md:hidden border-b ${
-          theme === 'dark' ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200'
+          theme === 'dark' ? 'bg-[#16161e]/90 backdrop-blur-sm border-white/5' : 'bg-white border-slate-200'
         }`}>
           <div className="px-4 py-3 space-y-2">
             {navLinks.map(link => (
@@ -167,14 +169,16 @@ export default function Layout({ children }) {
   const { theme } = useTheme()
   
   return (
-    <div className={`min-h-screen flex flex-col transition-colors ${
-      theme === 'dark' ? 'bg-slate-900 text-white' : 'bg-white text-slate-900'
-    }`}>
-      <Navbar />
-      <main className="flex-1 pt-16">
-        {children}
-      </main>
-      <Footer />
-    </div>
+    <ShaderBackground>
+      <div className={`min-h-screen flex flex-col transition-colors ${
+        theme === 'dark' ? 'text-white' : 'text-slate-900'
+      }`}>
+        <Navbar />
+        <main className="flex-1 pt-16">
+          {children}
+        </main>
+        <Footer />
+      </div>
+    </ShaderBackground>
   )
 }
