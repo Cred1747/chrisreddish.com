@@ -1,16 +1,30 @@
 export default async function handler(req, res) {
-  // Only allow POST
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
-    return res.status(500).json({ error: 'API key not configured' });
+    return res.status(500).json({ error: 'API key not configured. Set ANTHROPIC_API_KEY in Vercel environment variables.' });
   }
 
   try {
     const { system, messages } = req.body;
+
+    if (!messages || !Array.isArray(messages) || messages.length === 0) {
+      return res.status(400).json({ error: 'Messages array is required' });
+    }
+
+    const body = {
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 1000,
+      messages: messages,
+    };
+
+    // Only add system if provided
+    if (system) {
+      body.system = system;
+    }
 
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -19,23 +33,23 @@ export default async function handler(req, res) {
         'x-api-key': apiKey,
         'anthropic-version': '2023-06-01',
       },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        system: system || '',
-        messages: messages || [],
-      }),
+      body: JSON.stringify(body),
     });
 
     const data = await response.json();
 
     if (!response.ok) {
-      return res.status(response.status).json({ error: data.error?.message || 'API error' });
+      console.error('Anthropic API error:', JSON.stringify(data));
+      return res.status(200).json({
+        content: [{ type: 'text', text: `API error: ${data.error?.message || JSON.stringify(data)}` }]
+      });
     }
 
     return res.status(200).json(data);
   } catch (error) {
-    console.error('Chat API error:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    console.error('Chat handler error:', error.message);
+    return res.status(200).json({
+      content: [{ type: 'text', text: `Server error: ${error.message}` }]
+    });
   }
 }
