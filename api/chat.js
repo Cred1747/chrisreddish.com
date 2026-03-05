@@ -1,4 +1,4 @@
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -6,7 +6,7 @@ module.exports = async function handler(req, res) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
     return res.status(200).json({
-      content: [{ type: 'text', text: 'API key not configured. Set ANTHROPIC_API_KEY in Vercel environment variables.' }]
+      content: [{ type: 'text', text: 'API key not configured.' }]
     });
   }
 
@@ -43,7 +43,7 @@ module.exports = async function handler(req, res) {
 
     if (!response.ok) {
       return res.status(200).json({
-        content: [{ type: 'text', text: `Anthropic error: ${data.error?.message || JSON.stringify(data)}` }]
+        content: [{ type: 'text', text: `API error: ${data.error?.message || JSON.stringify(data)}` }]
       });
     }
 
@@ -53,4 +53,4 @@ module.exports = async function handler(req, res) {
       content: [{ type: 'text', text: `Server error: ${error.message}` }]
     });
   }
-};
+}
