@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import { ThemeProvider } from './context/ThemeContext'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import Layout from './components/Layout'
 import Home from './pages/Home'
 import Projects from './pages/Projects'
@@ -25,6 +26,7 @@ function App() {
           <Route path="/utility" element={<UtilityDashboard />} />
         </Routes>
       </Layout>
+      <SpeedInsights />
     </ThemeProvider>
   )
 }
