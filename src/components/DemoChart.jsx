@@ -24,15 +24,6 @@ const paymentData = [
   { month: 'Jun', onTime: 88, late: 8, delinquent: 4 },
 ]
 
-const discountImpact = [
-  { week: 'W1', control: 62, treatment: 64 },
-  { week: 'W2', control: 63, treatment: 68 },
-  { week: 'W3', control: 61, treatment: 71 },
-  { week: 'W4', control: 64, treatment: 75 },
-  { week: 'W5', control: 62, treatment: 78 },
-  { week: 'W6', control: 65, treatment: 82 },
-]
-
 const citationsByType = [
   { type: 'Street Cleaning', count: 4520 },
   { type: 'Expired Meter', count: 3890 },
@@ -65,7 +56,7 @@ export default function DemoChart() {
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-sm font-semibold text-slate-300">Live Demo</h3>
         <div className="flex gap-1">
-          {['payment', 'rct', 'citations'].map(chart => (
+          {['payment', 'citations'].map(chart => (
             <button
               key={chart}
               onClick={() => setActiveChart(chart)}
@@ -75,7 +66,7 @@ export default function DemoChart() {
                   : 'bg-slate-700 text-slate-400 hover:text-white'
               }`}
             >
-              {chart === 'payment' ? 'Payments' : chart === 'rct' ? 'RCT' : 'Citations'}
+              {chart === 'payment' ? 'Payments' : 'Citations'}
             </button>
           ))}
         </div>
@@ -119,37 +110,6 @@ export default function DemoChart() {
                   name="Delinquent"
                 />
               </AreaChart>
-            </ResponsiveContainer>
-          </>
-        )}
-
-        {activeChart === 'rct' && (
-          <>
-            <p className="text-xs text-slate-500 mb-2">Smart Discount RCT: Control vs Treatment</p>
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={discountImpact}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                <XAxis dataKey="week" stroke="#94a3b8" fontSize={12} />
-                <YAxis stroke="#94a3b8" fontSize={12} domain={[55, 90]} />
-                <Tooltip content={<CustomTooltip />} />
-                <Legend />
-                <Line
-                  type="monotone"
-                  dataKey="control"
-                  stroke="#94a3b8"
-                  strokeWidth={2}
-                  dot={{ fill: '#94a3b8' }}
-                  name="Control"
-                />
-                <Line
-                  type="monotone"
-                  dataKey="treatment"
-                  stroke="#3b82f6"
-                  strokeWidth={2}
-                  dot={{ fill: '#3b82f6' }}
-                  name="Treatment"
-                />
-              </LineChart>
             </ResponsiveContainer>
           </>
         )}
