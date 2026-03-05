@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, Database, BarChart3, Brain, Code, Building2, ExternalLink, Github, FileText, Users, TrendingUp, Layers } from 'lucide-react'
+import TestimonialCards from '../components/TestimonialCards'
 
 const stats = [
   { value: '✓', label: 'Built AI Chatbots', icon: Brain },
@@ -266,28 +267,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured In */}
+      {/* Quotes & Publications */}
       <section className="py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <div className="bg-gradient-to-r from-primary-900/20 to-accent-900/20 rounded-2xl border border-primary-500/20 p-8">
-            <div className="flex items-center gap-2 text-primary-400 text-sm font-medium mb-4">
-              <FileText className="w-4 h-4" />
-              Featured in USF School of Information Newsletter • Spring 2026
-            </div>
-            <blockquote className="text-lg sm:text-xl text-slate-200 italic mb-4 leading-relaxed">
-              "It's fast, collaborative, and iterative—the closest thing to an applied analytics shop I've experienced at school. Beyond modeling, we emphasize validation, reproducibility, and communication. That cadence—ship, critique, refine—leveled up my data cleaning, modeling, and dashboarding skills far more than one-and-done class projects."
-            </blockquote>
-            <div className="flex items-center justify-between">
-              <span className="text-slate-400 text-sm">— FLAIRS Conference Q&A</span>
-              <a
-                href="https://www.usf.edu/arts-sciences/departments/information/documents/newsletter/si-newsletter-vol4-no1-compressed.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary-400 hover:text-primary-300 text-sm font-medium flex items-center gap-1"
-              >
-                Read Newsletter <ExternalLink className="w-3 h-3" />
-              </a>
-            </div>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl font-bold mb-2 text-center">In My Own Words</h2>
+          <p className="text-slate-400 text-sm text-center mb-10">Swipe the cards to read more</p>
+          <div className="grid place-content-center overflow-hidden">
+            <TestimonialCards />
           </div>
         </div>
       </section>
