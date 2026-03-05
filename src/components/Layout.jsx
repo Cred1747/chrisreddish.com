@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, Github, Linkedin, Mail, Database, Sun, Moon } from 'lucide-react'
 import { useTheme } from '../context/ThemeContext'
 import ShaderBackground from './ShaderBackground'
+import PortfolioChatbot from './PortfolioChatbot'
 
 const navLinks = [
   { path: '/', label: 'Home' },
@@ -178,6 +179,7 @@ export default function Layout({ children }) {
           {children}
         </main>
         <Footer />
+        <PortfolioChatbot />
       </div>
     </ShaderBackground>
   )
