@@ -3,8 +3,8 @@ import DemoChart from '../components/DemoChart'
 
 const dashboards = [
   {
-    title: 'Portland Water Bureau - Smart Discount Analysis',
-    description: 'RCT analysis evaluating the effectiveness of discount programs on payment behavior. Includes demographic equity analysis, payment timing patterns, and program impact metrics.',
+    title: 'Water Utility Billing & Equity Analytics',
+    description: 'RCT-based analysis evaluating discount program effectiveness on payment behavior. Includes demographic equity analysis, affordability burden metrics, and program impact evaluation.',
     icon: BarChart3,
     tags: ['Looker', 'BigQuery', 'LookML', 'RCT Analysis', 'Equity Analytics'],
     highlights: [
@@ -15,39 +15,39 @@ const dashboards = [
     ],
   },
   {
-    title: 'Chicago Parking Citation Analytics',
-    description: 'Comprehensive analysis of parking enforcement patterns, violation types, and revenue trends across Chicago neighborhoods.',
+    title: 'Municipal Citation & Enforcement Analytics',
+    description: 'Comprehensive analysis of citation enforcement patterns, violation types, and revenue trends across urban neighborhoods.',
     icon: Building2,
     tags: ['Data Pipeline', 'Visualization', 'Policy Analysis', 'BigQuery'],
     highlights: [
       'Citation volume trends over time',
-      'Top violation types by ward',
+      'Violation type analysis by geography',
       'Payment and dispute rates',
-      'Officer productivity metrics',
+      'Operational productivity metrics',
     ],
   },
   {
-    title: 'Municipal Tax Lien Dashboard',
-    description: 'Tracking and analysis of tax lien portfolios, including aging analysis, collection rates, and property value correlations.',
+    title: 'Tax Lien Portfolio Dashboard',
+    description: 'Tracking and analysis of municipal tax lien portfolios across multiple jurisdictions, including aging analysis, collection rates, and property value correlations.',
     icon: Database,
     tags: ['Financial Analytics', 'Looker', 'Municipal Finance'],
     highlights: [
       'Lien aging buckets',
       'Collection success rates',
       'Property value integration',
-      'Forecasting models',
+      'Multi-jurisdiction comparison',
     ],
   },
   {
-    title: 'Conversational Analytics Agent',
-    description: 'AI-powered natural language interface for querying municipal data. Built with 120+ Golden Queries for common analytical questions.',
+    title: 'AI Conversational Analytics Agent',
+    description: 'AI-powered natural language interface for querying municipal data. Uses a Golden Query semantic layer to ensure accurate, validated responses.',
     icon: Brain,
-    tags: ['AI', 'LLM', 'Golden Queries', 'Natural Language'],
+    tags: ['AI', 'Claude API', 'Golden Queries', 'Natural Language'],
     highlights: [
-      'Natural language to SQL conversion',
-      'Pre-built query templates',
+      'Natural language to structured query',
+      'Pre-validated query templates',
       'Context-aware responses',
-      'Integration with Looker API',
+      'See it live at /utility on this site',
     ],
   },
 ]

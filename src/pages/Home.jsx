@@ -59,7 +59,8 @@ const liveProjects = [
     tags: ['React', 'Recharts', 'Data Visualization'],
     link: '/bourbon',
     github: 'https://github.com/Cred1747/chrisreddish.com',
-    highlight: false,
+    highlight: true,
+    badge: 'Personal Project',
   },
 ]
 
