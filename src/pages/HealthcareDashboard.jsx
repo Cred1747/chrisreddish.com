@@ -1,19 +1,31 @@
 import { useState, useEffect, useMemo } from "react";
+import { useTheme } from "../context/ThemeContext";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
   ResponsiveContainer, Cell, ReferenceLine, ScatterChart, Scatter, ZAxis
 } from "recharts";
 import { HOSPITALS, FL_AVERAGES } from "../data/hospitalData";
 
-const C = {
-  bg: "#080c14", card: "#0d1320", surface: "#151d2e",
-  border: "#1e2d45", text: "#dfe6f0", muted: "#7c8db5", dim: "#4a5e82",
-  quality: "#06b6d4", readm: "#f59e0b", px: "#a78bfa", ed: "#10b981", red: "#ef4444",
-};
-
 // sequential ramps (one hue, monotonic lightness) for 1-5 star distributions
-const CYAN_RAMP = ["#164e63", "#155e75", "#0e7490", "#0891b2", "#22d3ee"];
-const VIOLET_RAMP = ["#312e81", "#4338ca", "#6366f1", "#818cf8", "#c7d2fe"];
+const PALETTES = {
+  dark: {
+    bg: "#080c14", card: "#0d1320", surface: "#151d2e",
+    border: "#1e2d45", text: "#dfe6f0", muted: "#7c8db5", dim: "#4a5e82",
+    quality: "#06b6d4", readm: "#f59e0b", px: "#a78bfa", ed: "#10b981", red: "#ef4444",
+    tip: "rgba(8,12,20,0.95)",
+    cyanRamp: ["#164e63", "#155e75", "#0e7490", "#0891b2", "#22d3ee"],
+    violetRamp: ["#312e81", "#4338ca", "#6366f1", "#818cf8", "#c7d2fe"],
+  },
+  light: {
+    bg: "#f6f8fb", card: "#ffffff", surface: "#eef2f7",
+    border: "#d8e0ea", text: "#1a2433", muted: "#5b6b82", dim: "#8494ab",
+    quality: "#0891b2", readm: "#b45309", px: "#6d28d9", ed: "#047857", red: "#b91c1c",
+    tip: "rgba(255,255,255,0.98)",
+    cyanRamp: ["#cffafe", "#a5f3fc", "#22d3ee", "#0891b2", "#155e75"],
+    violetRamp: ["#e0e7ff", "#c7d2fe", "#818cf8", "#4f46e5", "#312e81"],
+  },
+};
+let C = PALETTES.dark;
 
 const REGIONS = {
   "All Florida": null,
@@ -56,7 +68,7 @@ const Chip = ({ children, active, color, onClick }) => (
 const TT = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null;
   return (
-    <div style={{ background: "rgba(8,12,20,0.95)", border: `1px solid ${C.border}`, borderRadius: 6, padding: "10px 14px" }}>
+    <div style={{ background: C.tip, border: `1px solid ${C.border}`, borderRadius: 6, padding: "10px 14px" }}>
       <div style={{ fontSize: 12, fontWeight: 700, color: C.text, marginBottom: 6 }}>{label}</div>
       {payload.map((p, i) => (
         <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
@@ -95,14 +107,16 @@ const SchemaTable = ({ name, kind, fields, color }) => (
 );
 
 const TABS = [
-  { id: "quality", label: "Quality Ratings", icon: "★", color: C.quality },
-  { id: "readm", label: "Readmissions", icon: "↩", color: C.readm },
-  { id: "px", label: "Patient Experience", icon: "☺", color: C.px },
-  { id: "ed", label: "ED Operations", icon: "⏱", color: C.ed },
-  { id: "model", label: "Data Model & Methods", icon: "◈", color: C.quality },
+  { id: "quality", label: "Quality Ratings", icon: "★", color: "quality" },
+  { id: "readm", label: "Readmissions", icon: "↩", color: "readm" },
+  { id: "px", label: "Patient Experience", icon: "☺", color: "px" },
+  { id: "ed", label: "ED Operations", icon: "⏱", color: "ed" },
+  { id: "model", label: "Data Model & Methods", icon: "◈", color: "quality" },
 ];
 
 export default function HealthcareDashboard() {
+  const { theme } = useTheme();
+  C = PALETTES[theme] || PALETTES.dark;
   const [tab, setTab] = useState("quality");
   const [region, setRegion] = useState("All Florida");
   const [fade, setFade] = useState(true);
@@ -142,7 +156,7 @@ export default function HealthcareDashboard() {
               <YAxis stroke={C.dim} fontSize={10} allowDecimals={false} />
               <Tooltip content={<TT />} />
               <Bar dataKey="count" name="Hospitals" radius={[4, 4, 0, 0]} barSize={38}>
-                {dist.map((d, i) => <Cell key={i} fill={CYAN_RAMP[d.r - 1]} />)}
+                {dist.map((d, i) => <Cell key={i} fill={C.cyanRamp[d.r - 1]} />)}
               </Bar>
             </BarChart>
           </Ch>
@@ -151,7 +165,7 @@ export default function HealthcareDashboard() {
               <CartesianGrid strokeDasharray="3 3" stroke={C.border} />
               <XAxis dataKey="group" stroke={C.dim} fontSize={11} />
               <YAxis stroke={C.dim} fontSize={10} domain={[0, 5]} />
-              <Tooltip content={({ active, payload }) => { if (!active || !payload?.length) return null; const d = payload[0].payload; return <div style={{ background: "rgba(8,12,20,.95)", border: `1px solid ${C.border}`, borderRadius: 6, padding: "10px 14px" }}><div style={{ fontSize: 12, fontWeight: 700, color: C.text }}>{d.group}</div><div style={{ fontSize: 11, color: C.muted }}>Avg rating: {d.avgRating} ({d.count} hospitals)</div></div>; }} />
+              <Tooltip content={({ active, payload }) => { if (!active || !payload?.length) return null; const d = payload[0].payload; return <div style={{ background: C.tip, border: `1px solid ${C.border}`, borderRadius: 6, padding: "10px 14px" }}><div style={{ fontSize: 12, fontWeight: 700, color: C.text }}>{d.group}</div><div style={{ fontSize: 11, color: C.muted }}>Avg rating: {d.avgRating} ({d.count} hospitals)</div></div>; }} />
               <ReferenceLine y={FL_AVERAGES.rating} stroke={C.dim} strokeDasharray="6 3" label={{ value: "FL avg", fill: C.dim, fontSize: 10 }} />
               <Bar dataKey="avgRating" name="Avg rating" fill={C.quality} radius={[4, 4, 0, 0]} barSize={38} />
             </BarChart>
@@ -162,7 +176,7 @@ export default function HealthcareDashboard() {
             <CartesianGrid strokeDasharray="3 3" stroke={C.border} />
             <XAxis type="number" stroke={C.dim} fontSize={10} domain={[0, 5]} />
             <YAxis dataKey="name" type="category" stroke={C.dim} fontSize={10} width={220} />
-            <Tooltip content={({ active, payload }) => { if (!active || !payload?.length) return null; const d = payload[0].payload; return <div style={{ background: "rgba(8,12,20,.95)", border: `1px solid ${C.border}`, borderRadius: 6, padding: "10px 14px" }}><div style={{ fontSize: 12, fontWeight: 700, color: C.text }}>{d.name}</div><div style={{ fontSize: 11, color: C.muted }}>{d.city} • Overall: {d.rating} • HCAHPS: {d.hcahps || "n/a"}</div></div>; }} />
+            <Tooltip content={({ active, payload }) => { if (!active || !payload?.length) return null; const d = payload[0].payload; return <div style={{ background: C.tip, border: `1px solid ${C.border}`, borderRadius: 6, padding: "10px 14px" }}><div style={{ fontSize: 12, fontWeight: 700, color: C.text }}>{d.name}</div><div style={{ fontSize: 11, color: C.muted }}>{d.city} • Overall: {d.rating} • HCAHPS: {d.hcahps || "n/a"}</div></div>; }} />
             <Legend wrapperStyle={{ fontSize: 11 }} />
             <Bar dataKey="rating" name="Overall star" fill={C.quality} radius={[0, 4, 4, 0]} barSize={9} />
             <Bar dataKey="hcahps" name="HCAHPS star" fill={C.px} radius={[0, 4, 4, 0]} barSize={9} />
@@ -212,7 +226,7 @@ export default function HealthcareDashboard() {
               <CartesianGrid strokeDasharray="3 3" stroke={C.border} />
               <XAxis type="number" stroke={C.dim} fontSize={10} unit="%" domain={[0, "auto"]} />
               <YAxis dataKey="name" type="category" stroke={C.dim} fontSize={9} width={200} />
-              <Tooltip content={({ active, payload }) => { if (!active || !payload?.length) return null; const d = payload[0].payload; return <div style={{ background: "rgba(8,12,20,.95)", border: `1px solid ${C.border}`, borderRadius: 6, padding: "10px 14px" }}><div style={{ fontSize: 12, fontWeight: 700, color: C.text }}>{d.name}</div><div style={{ fontSize: 11, color: C.muted }}>{d.city} • {d.rate}%</div><div style={{ fontSize: 10, color: C.dim }}>{d.flag}</div></div>; }} />
+              <Tooltip content={({ active, payload }) => { if (!active || !payload?.length) return null; const d = payload[0].payload; return <div style={{ background: C.tip, border: `1px solid ${C.border}`, borderRadius: 6, padding: "10px 14px" }}><div style={{ fontSize: 12, fontWeight: 700, color: C.text }}>{d.name}</div><div style={{ fontSize: 11, color: C.muted }}>{d.city} • {d.rate}%</div><div style={{ fontSize: 10, color: C.dim }}>{d.flag}</div></div>; }} />
               <ReferenceLine x={FL_AVERAGES.readmHospWide} stroke={C.dim} strokeDasharray="6 3" label={{ value: "FL avg", fill: C.dim, fontSize: 10 }} />
               <Bar dataKey="rate" name="Rate" fill={C.readm} radius={[0, 4, 4, 0]} barSize={14} />
             </BarChart>
@@ -266,7 +280,7 @@ export default function HealthcareDashboard() {
               <YAxis stroke={C.dim} fontSize={10} allowDecimals={false} />
               <Tooltip content={<TT />} />
               <Bar dataKey="count" name="Hospitals" radius={[4, 4, 0, 0]} barSize={38}>
-                {dist.map((d, i) => <Cell key={i} fill={VIOLET_RAMP[d.r - 1]} />)}
+                {dist.map((d, i) => <Cell key={i} fill={C.violetRamp[d.r - 1]} />)}
               </Bar>
             </BarChart>
           </Ch>
@@ -276,7 +290,7 @@ export default function HealthcareDashboard() {
             <CartesianGrid strokeDasharray="3 3" stroke={C.border} />
             <XAxis type="number" stroke={C.dim} fontSize={10} domain={[0, 5]} />
             <YAxis dataKey="name" type="category" stroke={C.dim} fontSize={10} width={220} />
-            <Tooltip content={({ active, payload }) => { if (!active || !payload?.length) return null; const d = payload[0].payload; return <div style={{ background: "rgba(8,12,20,.95)", border: `1px solid ${C.border}`, borderRadius: 6, padding: "10px 14px" }}><div style={{ fontSize: 12, fontWeight: 700, color: C.text }}>{d.name}</div><div style={{ fontSize: 11, color: C.muted }}>{d.city} • Summary: {d.stars} • Recommend: {d.recommend || "n/a"}</div></div>; }} />
+            <Tooltip content={({ active, payload }) => { if (!active || !payload?.length) return null; const d = payload[0].payload; return <div style={{ background: C.tip, border: `1px solid ${C.border}`, borderRadius: 6, padding: "10px 14px" }}><div style={{ fontSize: 12, fontWeight: 700, color: C.text }}>{d.name}</div><div style={{ fontSize: 11, color: C.muted }}>{d.city} • Summary: {d.stars} • Recommend: {d.recommend || "n/a"}</div></div>; }} />
             <Legend wrapperStyle={{ fontSize: 11 }} />
             <Bar dataKey="stars" name="Summary star" fill={C.px} radius={[0, 4, 4, 0]} barSize={9} />
             <Bar dataKey="recommend" name="Would recommend" fill={C.ed} radius={[0, 4, 4, 0]} barSize={9} />
@@ -313,7 +327,7 @@ export default function HealthcareDashboard() {
               <CartesianGrid strokeDasharray="3 3" stroke={C.border} />
               <XAxis dataKey="vol" stroke={C.dim} fontSize={11} />
               <YAxis stroke={C.dim} fontSize={10} unit="m" />
-              <Tooltip content={({ active, payload }) => { if (!active || !payload?.length) return null; const d = payload[0].payload; return <div style={{ background: "rgba(8,12,20,.95)", border: `1px solid ${C.border}`, borderRadius: 6, padding: "10px 14px" }}><div style={{ fontSize: 12, fontWeight: 700, color: C.text }}>{d.vol} volume</div><div style={{ fontSize: 11, color: C.muted }}>Avg median: {d.minutes} min ({d.count} EDs)</div></div>; }} />
+              <Tooltip content={({ active, payload }) => { if (!active || !payload?.length) return null; const d = payload[0].payload; return <div style={{ background: C.tip, border: `1px solid ${C.border}`, borderRadius: 6, padding: "10px 14px" }}><div style={{ fontSize: 12, fontWeight: 700, color: C.text }}>{d.vol} volume</div><div style={{ fontSize: 11, color: C.muted }}>Avg median: {d.minutes} min ({d.count} EDs)</div></div>; }} />
               <Bar dataKey="minutes" name="Avg median minutes" fill={C.ed} radius={[4, 4, 0, 0]} barSize={38} />
             </BarChart>
           </Ch>
@@ -323,7 +337,7 @@ export default function HealthcareDashboard() {
               <XAxis dataKey="x" name="Median ED minutes" stroke={C.dim} fontSize={10} unit="m" type="number" />
               <YAxis dataKey="y" name="Left before seen" stroke={C.dim} fontSize={10} unit="%" type="number" />
               <ZAxis range={[60, 60]} />
-              <Tooltip content={({ active, payload }) => { if (!active || !payload?.length) return null; const d = payload[0].payload; return <div style={{ background: "rgba(8,12,20,.95)", border: `1px solid ${C.border}`, borderRadius: 6, padding: "10px 14px" }}><div style={{ fontSize: 12, fontWeight: 700, color: C.text }}>{d.name}</div><div style={{ fontSize: 11, color: C.muted }}>{d.x} min • {d.y}% walked out • {d.vol} volume</div></div>; }} />
+              <Tooltip content={({ active, payload }) => { if (!active || !payload?.length) return null; const d = payload[0].payload; return <div style={{ background: C.tip, border: `1px solid ${C.border}`, borderRadius: 6, padding: "10px 14px" }}><div style={{ fontSize: 12, fontWeight: 700, color: C.text }}>{d.name}</div><div style={{ fontSize: 11, color: C.muted }}>{d.x} min • {d.y}% walked out • {d.vol} volume</div></div>; }} />
               <Legend wrapperStyle={{ fontSize: 11 }} />
               {VOLS.map(v => <Scatter key={v} name={titleCase(v)} data={scatter.filter(d => d.vol === v)} fill={VOL_COLORS[v]} />)}
             </ScatterChart>
@@ -454,7 +468,7 @@ export default function HealthcareDashboard() {
           {Object.keys(REGIONS).map(r => <Chip key={r} active={region === r} color={C.quality} onClick={() => setRegion(r)}>{r}</Chip>)}
         </div>
         <div style={{ display: "flex", gap: 2, marginTop: 16, marginLeft: 48, flexWrap: "wrap" }}>
-          {TABS.map(t => <button key={t.id} onClick={() => setTab(t.id)} style={{ padding: "9px 18px", borderRadius: "7px 7px 0 0", fontSize: 13, fontWeight: 700, cursor: "pointer", border: "none", display: "flex", alignItems: "center", gap: 6, background: tab === t.id ? C.bg : "transparent", color: tab === t.id ? t.color : C.dim, borderBottom: tab === t.id ? `2px solid ${t.color}` : "2px solid transparent" }}>{t.icon} {t.label}</button>)}
+          {TABS.map(t => <button key={t.id} onClick={() => setTab(t.id)} style={{ padding: "9px 18px", borderRadius: "7px 7px 0 0", fontSize: 13, fontWeight: 700, cursor: "pointer", border: "none", display: "flex", alignItems: "center", gap: 6, background: tab === t.id ? C.bg : "transparent", color: tab === t.id ? C[t.color] : C.dim, borderBottom: tab === t.id ? `2px solid ${C[t.color]}` : "2px solid transparent" }}>{t.icon} {t.label}</button>)}
         </div>
       </div>
       <div style={{ padding: "24px 32px 40px", opacity: fade ? 1 : 0, transform: fade ? "translateY(0)" : "translateY(4px)", transition: "all .2s ease" }}><Content /></div>
