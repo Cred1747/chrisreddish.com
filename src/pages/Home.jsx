@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, Database, BarChart3, Brain, Code, Building2, ExternalLink, Github, FileText, Users, TrendingUp, Layers } from 'lucide-react'
 import TestimonialCards from '../components/TestimonialCards'
+import EmailLink, { EMAIL } from '../components/EmailLink'
 
 const stats = [
   { value: '✓', label: 'Built AI Chatbots', icon: Brain },
@@ -317,13 +318,11 @@ export default function Home() {
             I'm actively looking for Data Analyst, BI Developer, and Analytics Engineer
             positions, remote or Tampa-area. Let's chat about how I can help your team.
           </p>
-          <a
-            href="mailto:ChristopherReddish@USF.edu"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-slate-900 font-semibold rounded-lg hover:bg-slate-100 transition-colors"
-          >
+          <EmailLink className="inline-flex items-center gap-2 px-8 py-4 bg-white text-slate-900 font-semibold rounded-lg hover:bg-slate-100 transition-colors">
             Get in Touch
             <ArrowRight className="w-5 h-5" />
-          </a>
+          </EmailLink>
+          <p className="mt-4 text-sm text-slate-400">{EMAIL} (click above to copy)</p>
         </div>
       </section>
     </div>

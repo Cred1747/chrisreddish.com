@@ -4,6 +4,7 @@ import { Menu, X, Github, Linkedin, Mail, Database, Sun, Moon } from 'lucide-rea
 import { useTheme } from '../context/ThemeContext'
 import ShaderBackground from './ShaderBackground'
 import PortfolioChatbot from './PortfolioChatbot'
+import EmailLink from './EmailLink'
 
 const navLinks = [
   { path: '/', label: 'Home' },
@@ -153,13 +154,14 @@ function Footer() {
             >
               <Linkedin className="w-5 h-5" />
             </a>
-            <a
-              href="mailto:ChristopherReddish@USF.edu"
+            <EmailLink
+              iconOnly
               className={`transition-colors ${theme === 'dark' ? 'text-slate-400 hover:text-white' : 'text-slate-500 hover:text-slate-900'}`}
-              aria-label="Email"
+              aria-label="Copy email address"
+              title="Copy email address"
             >
               <Mail className="w-5 h-5" />
-            </a>
+            </EmailLink>
           </div>
         </div>
       </div>

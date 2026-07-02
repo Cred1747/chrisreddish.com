@@ -11,6 +11,7 @@ import {
   Users,
   ExternalLink,
 } from 'lucide-react'
+import EmailLink, { EMAIL } from '../components/EmailLink'
 
 const skills = [
   {
@@ -253,12 +254,9 @@ export default function About() {
             positions, remote or Tampa-area. I'd love to hear about opportunities on your team.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a
-              href="mailto:ChristopherReddish@USF.edu"
-              className="px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-colors"
-            >
+            <EmailLink className="inline-flex items-center gap-2 px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-colors">
               Email Me
-            </a>
+            </EmailLink>
             <a
               href="https://www.linkedin.com/in/christopher-reddish-192a402a5"
               target="_blank"
@@ -276,6 +274,7 @@ export default function About() {
               Download Resume
             </a>
           </div>
+          <p className="mt-4 text-sm text-slate-500 text-center">{EMAIL} (click Email Me to copy)</p>
         </section>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { FileText, Users, ExternalLink, BookOpen, Award, Newspaper } from 'lucide-react'
+import EmailLink from '../components/EmailLink'
 
 const publications = [
   {
@@ -291,13 +292,10 @@ export default function Research() {
               <ExternalLink className="w-4 h-4" />
               LinkedIn
             </a>
-            <a
-              href="mailto:ChristopherReddish@USF.edu"
-              className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg transition-colors"
-            >
+            <EmailLink className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg transition-colors">
               <ExternalLink className="w-4 h-4" />
               Academic Email
-            </a>
+            </EmailLink>
           </div>
         </section>
       </div>
