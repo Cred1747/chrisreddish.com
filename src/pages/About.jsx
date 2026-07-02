@@ -14,50 +14,64 @@ import {
 
 const skills = [
   {
-    category: 'Data & Analytics',
-    icon: Database,
-    items: ['BigQuery', 'Looker / LookML', 'SQL', 'dbt', 'Data Modeling', 'ETL Pipelines'],
-  },
-  {
-    category: 'Visualization',
+    category: 'BI & Analytics',
     icon: BarChart3,
-    items: ['Looker Dashboards', 'Recharts', 'Chart.js', 'D3.js', 'Tableau'],
+    items: ['Looker / LookML', 'Power BI & DAX', 'Excel (advanced)', 'KPI development', 'Data storytelling', 'Self-service analytics'],
   },
   {
-    category: 'Cloud & Infrastructure',
-    icon: Cloud,
-    items: ['Google Cloud Platform', 'Cloud Functions', 'BigQuery ML', 'Pub/Sub'],
+    category: 'Data Modeling & Warehousing',
+    icon: Database,
+    items: ['Dimensional modeling (star schema)', 'Curated data models', 'Semantic layers', 'Data warehousing', 'Data architecture'],
   },
   {
-    category: 'Programming',
+    category: 'SQL & Data Engineering',
     icon: Code,
-    items: ['Python', 'JavaScript', 'React', 'SQL', 'R', 'LookML'],
+    items: ['Advanced SQL (CTEs, window functions)', 'BigQuery', 'SQL Server', 'ETL/ELT pipelines', 'Data quality & validation', 'Data dictionaries & lineage'],
+  },
+  {
+    category: 'Cloud, AI & Programming',
+    icon: Cloud,
+    items: ['GCP (BigQuery, Cloud Run)', 'Conversational AI agents', 'NLP (BERT), PyTorch, scikit-learn', 'Python, JavaScript, R', 'Git / CI-CD'],
   },
 ]
 
 const experience = [
   {
-    title: 'Data & AI Analytics Engineer',
+    title: 'Data Analyst & Analytics Engineer',
     company: 'Servus Municipal Finance Analytics',
-    period: '2024 - Present',
+    period: 'June 2024 - Present',
     location: 'Remote',
     highlights: [
-      'Build data pipelines in GCP for municipal clients across the U.S.',
-      'Develop Looker dashboards with LookML for utility billing and parking analytics',
-      'Create AI conversational agents with a Semantic Query Layer for natural language data access',
-      'Lead equity analysis and RCT evaluation for water utility discount programs',
+      'Design and deliver BI solutions end to end: curated data models, reports, and interactive dashboards for municipal clients across the U.S.',
+      'Build data warehousing pipelines processing 100M+ rows into BigQuery with automated data quality checks',
+      'Architect dimensional data models and LookML semantic layers serving technical and non-technical stakeholders',
+      'Rebuilt a citywide parking revenue model with near-perfect row-level parity, surfacing $59M+ in additional recoverable revenue visibility',
+      'Deployed AI conversational analytics on Cloud Run with a Semantic Query Layer of 120+ validated queries',
+      'Handle sensitive, person-level financial and demographic data under government privacy requirements',
+      'Author data dictionaries, transformation logic, and lineage documentation; coach a team of 5 university capstone analysts',
     ],
   },
   {
-    title: 'Retail Operations Manager',
-    company: '14+ Years in Retail Management',
-    period: '2010 - 2024',
+    title: 'Research Data Analyst',
+    company: 'USF Big Data Analytics Lab',
+    period: 'January 2023 - December 2025',
     location: 'Tampa, FL',
     highlights: [
-      '14+ years of leadership experience managing teams and operations',
-      'Developed data-driven inventory and scheduling optimization',
-      'Built strong communication and stakeholder management skills',
-      'Consistently exceeded performance targets and quality standards',
+      'Built end-to-end ML/NLP pipelines for large-scale text analysis: collection, preprocessing, feature engineering, training, and evaluation',
+      'Fine-tuned models (BERT, Logistic Regression, Gradient Boosting, Random Forest) reaching 88%+ accuracy on stance detection',
+      'Co-authored a peer-reviewed publication at the 38th International FLAIRS Conference (SCOPUS-indexed)',
+    ],
+  },
+  {
+    title: 'Department Manager, Staff-Level',
+    company: '14 Years in Retail Operations',
+    period: '2009 - 2023',
+    location: 'Tampa, FL',
+    highlights: [
+      'Built operational dashboards and KPI reporting in Excel and Power BI across sales, inventory, labor, and compliance',
+      'Led teams of 15-25 employees with structured coaching, training, and performance management',
+      'Managed USDA regulatory documentation requirements with auditable, high-accuracy record keeping',
+      'Transitioned paper-based tracking to electronic data workflows, improving reporting accuracy',
     ],
   },
 ]
@@ -98,23 +112,26 @@ export default function About() {
         <section className="mb-16">
           <div className="prose prose-invert max-w-none">
             <p className="text-lg text-slate-300 leading-relaxed mb-6">
-              I'm a Data & AI Analytics Engineer at Servus Municipal Finance Analytics, 
-              where I build data pipelines, Looker dashboards, and AI agents that help 
-              cities make better decisions. My work spans water utility billing analytics, 
-              parking citation analysis, and conversational AI systems that let city 
-              officials query data in plain English.
+              I'm a Data Analyst & Analytics Engineer at Servus Municipal Finance Analytics
+              with 8+ years of hands-on data reporting and analytics experience. I design
+              and deliver BI solutions end to end: curated data models, data warehousing
+              pipelines, interactive dashboards, and AI agents that help cities make better
+              decisions. I specialize in analytics data modeling for regulated, person-level
+              operational and financial data, where accuracy directly affects individuals.
             </p>
             <p className="text-lg text-slate-300 leading-relaxed mb-6">
-              I recently graduated with my Bachelor's in Information Science (Data Science concentration) 
-              and am now pursuing my Master's in Data Intelligence—both at USF with 
-              a 4.0 GPA. My research at USF's Big Data Analytics Lab focuses on NLP and 
-              stance detection in social media text.
+              I recently graduated with my Bachelor's in Information Science (Data Science concentration)
+              and am now pursuing my Master's in Data Intelligence, both at USF with
+              a 4.0 GPA. I'm a published researcher: my work at USF's Big Data Analytics
+              Lab on NLP and stance detection was peer-reviewed and published at the
+              38th International FLAIRS Conference.
             </p>
             <p className="text-lg text-slate-300 leading-relaxed">
-              Before pivoting to data science, I spent 14+ years in retail management. 
-              That experience gave me strong leadership skills, a results-driven mindset, 
-              and the ability to communicate complex information to diverse stakeholders — 
-              skills that translate directly to working with municipal clients.
+              Before pivoting to data science, I spent 14 years in retail operations
+              leadership, building dashboards in Excel and Power BI, leading teams of
+              15-25, and managing regulated compliance documentation. That experience
+              gave me strong leadership skills, a results-driven mindset, and the ability
+              to turn complex data requests into trusted, usable reporting for any audience.
             </p>
           </div>
         </section>
@@ -220,6 +237,11 @@ export default function About() {
               </div>
             ))}
           </div>
+          <p className="text-sm text-slate-500 mt-4">
+            Relevant coursework: Data Warehousing, Database Design, Health Informatics,
+            Applied Data Intelligence, Statistical Learning, Predictive Analytics,
+            Intro to AI, Deep Learning
+          </p>
         </section>
 
         {/* CTA */}
@@ -227,8 +249,8 @@ export default function About() {
           <Users className="w-10 h-10 text-primary-400 mx-auto mb-4" />
           <h2 className="text-2xl font-bold mb-2">Let's Connect</h2>
           <p className="text-slate-400 mb-6 max-w-md mx-auto">
-            I'm actively seeking remote Data Analyst and Looker Developer positions. 
-            I'd love to hear about opportunities on your team.
+            I'm actively seeking Data Analyst, BI Developer, and Analytics Engineer
+            positions, remote or Tampa-area. I'd love to hear about opportunities on your team.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <a

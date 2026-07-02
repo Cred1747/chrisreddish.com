@@ -170,7 +170,7 @@ export default function UtilityDashboard() {
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}><div style={{ width: 38, height: 38, borderRadius: 9, background: `linear-gradient(135deg, ${C.water}, ${C.electric})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20 }}>🏛</div><h1 style={{ fontSize: 24, fontWeight: 900, margin: 0, letterSpacing: "-0.02em", background: `linear-gradient(135deg, ${C.text} 30%, ${C.water})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Municipal Utility Analytics Suite</h1></div>
             <p style={{ margin: "4px 0 0 48px", fontSize: 13, color: C.muted }}>Water rates • Electric reliability • AI data exploration</p>
           </div>
-          <div style={{ textAlign: "right" }}><div style={{ fontSize: 15, fontWeight: 800, color: C.text }}>Chris Reddish</div><div style={{ fontSize: 12, color: C.muted }}>Data & AI Analytics Engineer</div></div>
+          <div style={{ textAlign: "right" }}><div style={{ fontSize: 15, fontWeight: 800, color: C.text }}>Chris Reddish</div><div style={{ fontSize: 12, color: C.muted }}>Data Analyst & Analytics Engineer</div></div>
         </div>
         <div style={{ display: "flex", gap: 2, marginTop: 22, marginLeft: 48 }}>{TABS.map(t => <button key={t.id} onClick={() => setTab(t.id)} style={{ padding: "9px 18px", borderRadius: "7px 7px 0 0", fontSize: 13, fontWeight: 700, cursor: "pointer", border: "none", display: "flex", alignItems: "center", gap: 6, background: tab === t.id ? C.bg : "transparent", color: tab === t.id ? t.color : C.dim, borderBottom: tab === t.id ? `2px solid ${t.color}` : "2px solid transparent" }}>{t.icon} {t.label}</button>)}</div>
       </div>

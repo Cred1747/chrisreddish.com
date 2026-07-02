@@ -5,20 +5,20 @@ import TestimonialCards from '../components/TestimonialCards'
 const stats = [
   { value: '✓', label: 'Built AI Chatbots', icon: Brain },
   { value: '✓', label: 'Featured in USF Newsletter', icon: FileText, externalLink: 'https://www.usf.edu/arts-sciences/departments/information/documents/newsletter/si-newsletter-vol4-no1-compressed.pdf' },
-  { value: '50GB+', label: 'Data Pipelines', icon: Database },
+  { value: '100M+', label: 'Rows in Data Pipelines', icon: Database },
   { value: '4.0', label: 'USF GPA', icon: TrendingUp },
 ]
 
 const highlights = [
   {
     icon: Database,
-    title: 'Data Engineering',
-    description: 'BigQuery pipelines, data modeling, and ETL workflows for municipal analytics',
+    title: 'Data Modeling & Warehousing',
+    description: 'Dimensional models, semantic layers, and ETL/ELT pipelines processing 100M+ rows with automated quality checks',
   },
   {
     icon: BarChart3,
-    title: 'Dashboard Development',
-    description: 'Interactive dashboards serving municipal clients across the U.S.',
+    title: 'BI & Dashboards',
+    description: 'Looker and Power BI reporting serving technical and non-technical stakeholders across the U.S.',
   },
   {
     icon: Brain,
@@ -34,6 +34,16 @@ const highlights = [
 
 const liveProjects = [
   {
+    title: 'Hospital Quality Benchmarking',
+    emoji: '⚕️',
+    description: 'Benchmark 167 Florida hospitals on real CMS Care Compare data: star ratings, readmissions, patient experience, and ED operations, modeled on a dimensional star schema',
+    tags: ['CMS Data', 'Star Schema', 'Data Quality', 'Recharts', 'Healthcare'],
+    link: '/healthcare',
+    github: 'https://github.com/Cred1747/chrisreddish.com',
+    highlight: true,
+    badge: 'NEW — Academic Project',
+  },
+  {
     title: 'Municipal Utility Analytics',
     emoji: '🏛',
     description: 'Interactive dashboard with a live AI chatbot — ask questions about water rates, electric reliability, and affordability using real EIA & Bluefield data',
@@ -41,7 +51,7 @@ const liveProjects = [
     link: '/utility',
     github: 'https://github.com/Cred1747/chrisreddish.com',
     highlight: true,
-    badge: 'NEW — Live AI Chatbot',
+    badge: 'Live AI Chatbot',
   },
   {
     title: 'BERTopic Tweet Explorer',
@@ -76,7 +86,7 @@ export default function Home() {
             <div>
               <div className="flex items-center gap-2 text-primary-400 mb-4">
                 <Building2 className="w-5 h-5" />
-                <span className="text-sm font-medium">Data & AI Analytics Engineer @ Servus</span>
+                <span className="text-sm font-medium">Data Analyst & Analytics Engineer @ Servus</span>
               </div>
               
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
@@ -84,9 +94,10 @@ export default function Home() {
               </h1>
               
               <p className="text-xl text-slate-300 mb-8 leading-relaxed">
-                I build data pipelines, dashboards, and AI agents that help 
-                municipalities make smarter decisions. Published NLP researcher 
-                pursuing my Master's in Data Intelligence.
+                I build curated data models, dashboards, and AI agents that help
+                organizations make smarter decisions. 8+ years of data reporting
+                and analytics experience. Published NLP researcher pursuing my
+                Master's in Data Intelligence.
               </p>
               
               <div className="flex flex-wrap gap-4">
@@ -200,7 +211,7 @@ export default function Home() {
             </Link>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 gap-6">
             {liveProjects.map((project, i) => (
               <div
                 key={i}
@@ -303,8 +314,8 @@ export default function Home() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-3xl font-bold mb-4">Let's Work Together</h2>
           <p className="text-slate-300 mb-8">
-            I'm actively looking for remote Data Analyst and Analytics Engineer positions.
-            Let's chat about how I can help your team.
+            I'm actively looking for Data Analyst, BI Developer, and Analytics Engineer
+            positions, remote or Tampa-area. Let's chat about how I can help your team.
           </p>
           <a
             href="mailto:ChristopherReddish@USF.edu"

@@ -44,12 +44,26 @@ const workProjects = [
   },
   {
     title: 'Semantic Query Layer',
-    description: 'Developed pre-validated analytical query templates for municipal AI agents, enabling natural language data exploration for city officials without SQL knowledge.',
+    description: 'Developed a library of 120+ pre-validated analytical query templates for municipal AI agents, enabling natural language data exploration for city officials without SQL knowledge.',
     technologies: ['LookML', 'BigQuery', 'Python', 'Looker API'],
+  },
+  {
+    title: 'Citywide Parking Revenue Model Rebuild',
+    description: 'Independently rebuilt a citywide parking revenue analytics model to reproduce and verify existing output, achieving near-perfect row-level parity and surfacing $59M+ in additional recoverable revenue visibility.',
+    technologies: ['BigQuery', 'Advanced SQL', 'Data Validation', 'Data Modeling'],
   },
 ]
 
 const academicProjects = [
+  {
+    title: 'Florida Hospital Quality Benchmarking',
+    category: 'School',
+    date: '2026',
+    description: 'Built following Health Informatics coursework at USF. Benchmarks 167 Florida acute-care hospitals on real CMS Care Compare data: star ratings, 30-day readmissions, HCAHPS patient experience, and ED operations, with a documented dimensional star schema and data quality notes.',
+    technologies: ['CMS Data', 'Dimensional Modeling', 'React', 'Recharts', 'Data Quality'],
+    github: 'https://github.com/Cred1747/chrisreddish.com',
+    live: '/healthcare',
+  },
   {
     title: 'NLP Stance Detection Pipeline',
     category: 'Research',
