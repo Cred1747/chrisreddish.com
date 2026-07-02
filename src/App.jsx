@@ -9,6 +9,7 @@ import About from './pages/About'
 import BourbonExplorer from './pages/BourbonExplorer'
 import BertExplorer from './pages/BertExplorer'
 import UtilityDashboard from './pages/UtilityDashboard'
+import HealthcareDashboard from './pages/HealthcareDashboard'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/bourbon" element={<BourbonExplorer />} />
           <Route path="/bert" element={<BertExplorer />} />
           <Route path="/utility" element={<UtilityDashboard />} />
+          <Route path="/healthcare" element={<HealthcareDashboard />} />
         </Routes>
       </Layout>
     </ThemeProvider>

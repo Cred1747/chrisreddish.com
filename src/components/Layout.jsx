@@ -12,6 +12,7 @@ const navLinks = [
   { path: '/bourbon', label: 'Bourbon Explorer' },
   { path: '/bert', label: 'BERTopic Explorer' },
   { path: '/utility', label: 'Utility Analytics' },
+  { path: '/healthcare', label: 'Hospital Benchmarks' },
   { path: '/research', label: 'Research' },
   { path: '/about', label: 'About' },
 ]
