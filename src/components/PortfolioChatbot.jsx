@@ -10,6 +10,7 @@ ABOUT CHRIS:
 - Research Data Analyst at USF Big Data Analytics Lab (January 2023 - December 2025)
 - Pursuing M.S. in Data Intelligence at University of South Florida (4.0 GPA, expected Spring 2027)
 - Completed B.S. in Information Science (Data Science concentration) from USF, December 2025, 4.0 GPA
+- Holds the Google Cybersecurity Professional Certificate, completed December 2023 (Google, via Coursera; eight courses covering security frameworks, network security, Linux/SQL, detection and response, and Python automation). Credential: coursera.org/account/accomplishments/professional-cert/28SLWNXVWFNX
 - Lives in Tampa/Riverview, FL area
 - Contact: ChristopherReddish@USF.edu
 - LinkedIn: linkedin.com/in/christopher-reddish-192a402a5

@@ -256,6 +256,17 @@ export default function About() {
             Intro to AI, Deep Learning. Currently taking Optimization Methods with
             Applications, Statistical Foundations of Data Intelligence, and Computer Vision
           </p>
+          <p className="text-sm text-slate-400 mt-3">
+            Certification: Google Cybersecurity Professional Certificate (Google, via Coursera), December 2023.{' '}
+            <a
+              href="https://www.coursera.org/account/accomplishments/professional-cert/28SLWNXVWFNX"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary-400 hover:text-primary-300 transition-colors"
+            >
+              View credential
+            </a>
+          </p>
         </section>
 
         {/* CTA */}
