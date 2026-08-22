@@ -19,7 +19,7 @@ const highlights = [
   {
     icon: BarChart3,
     title: 'BI & Dashboards',
-    description: 'Custom React + Recharts analytics apps over BigQuery (replaced Looker at Servus) serving technical and non-technical stakeholders across the U.S.',
+    description: 'Custom React + Recharts analytics apps over BigQuery, built to client-specific requirements for technical and non-technical stakeholders across the U.S.',
   },
   {
     icon: Brain,

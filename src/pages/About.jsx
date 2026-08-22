@@ -32,7 +32,7 @@ const skills = [
   {
     category: 'BI & Analytics',
     icon: BarChart3,
-    items: ['Custom React + Recharts analytics apps', 'Looker / LookML (prior)', 'Power BI & DAX', 'Excel (advanced)', 'KPI development', 'Data storytelling', 'Self-service analytics'],
+    items: ['Custom React + Recharts analytics apps', 'Looker / LookML', 'Power BI & DAX', 'Excel (advanced)', 'KPI development', 'Data storytelling', 'Self-service analytics'],
   },
 ]
 
@@ -45,8 +45,8 @@ const experience = [
     highlights: [
       'Serve as primary technical delivery contact for municipal government clients across the U.S., owning end-to-end solutions from source-system ingestion through pipelines, curated data models, dashboards, and production AI applications',
       'Architected a multi-city data warehouse unifying 180M+ records across nine U.S. cities into standardized dimensional schemas with census enrichment; build BigQuery pipelines with automated data quality checks',
-      'Replaced the Looker BI layer with a custom React + Recharts analytics frontend over BigQuery, removing the third-party BI dependency from client delivery',
-      'Architect dimensional data models and semantic layers in BigQuery serving technical and non-technical stakeholders',
+      'Built a custom React + Recharts analytics application over BigQuery, delivering client-specific dashboard requirements in-house and giving clients full ownership of the presentation layer',
+      'Architect dimensional data models and semantic layers (BigQuery, LookML) serving technical and non-technical stakeholders',
       'Rebuilt a citywide parking revenue model with near-perfect row-level parity, surfacing $59M+ in additional recoverable revenue visibility',
       'Deployed AI conversational analytics on Cloud Run with a Semantic Query Layer of 120+ validated queries',
       'Handle sensitive, person-level financial and demographic data under government privacy requirements',
