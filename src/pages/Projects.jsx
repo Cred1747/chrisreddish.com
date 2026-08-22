@@ -44,9 +44,9 @@ const workProjects = [
     technologies: ['BigQuery', 'SQL', 'Python', 'ELT Pipelines', 'Data Modeling', 'React + Recharts'],
   },
   {
-    title: 'Looker-to-React Analytics Platform Migration',
-    description: 'Replaced the Looker BI layer with a custom React + Recharts analytics application over BigQuery, rebuilding client dashboards and semantic logic in-house and removing the third-party BI dependency from client delivery.',
-    technologies: ['React', 'Recharts', 'BigQuery', 'SQL', 'Node.js API', 'Platform Migration'],
+    title: 'Custom React Analytics Application',
+    description: 'Built a custom React + Recharts analytics application over BigQuery, delivering client-specific dashboard requirements in-house and giving clients full ownership of the presentation layer.',
+    technologies: ['React', 'Recharts', 'BigQuery', 'SQL', 'Node.js API', 'Client Delivery'],
   },
   {
     title: 'Citywide Parking Revenue Model Rebuild',

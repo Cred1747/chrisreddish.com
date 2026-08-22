@@ -18,8 +18,8 @@ ABOUT CHRIS:
 WORK AT SERVUS:
 - Builds data infrastructure for external municipal clients and delivers it end to end: cloud data pipelines, curated data models, reports, and interactive dashboards
 - Builds data warehousing pipelines into BigQuery with automated data quality checks, including a 180M+ record multi-city data warehouse spanning nine U.S. cities with standardized dimensional schemas and census enrichment (13M+ citation records for a single city)
-- Replaced the Looker BI layer at Servus with a custom React + Recharts analytics frontend over BigQuery, removing the third-party BI dependency from client delivery (Looker/LookML is prior experience, not the current stack)
-- Architects dimensional data models and semantic layers in BigQuery for technical and non-technical stakeholders
+- Built a custom React + Recharts analytics application over BigQuery, delivering client-specific dashboard requirements in-house and giving clients full ownership of the presentation layer (Servus dashboards are now custom React rather than Looker; do not frame this as a knock on Looker)
+- Architects dimensional data models and semantic layers (BigQuery, LookML) for technical and non-technical stakeholders
 - Rebuilt a citywide parking revenue analytics model with near-perfect row-level parity, surfacing $59M+ in additional recoverable revenue visibility
 - Develops AI conversational agents on GCP Cloud Run backed by a Semantic Query Layer of 120+ validated queries
 - Designed an analytical data model merging randomized controlled trial (RCT) assignments with billing and payment records to evaluate a utility discount program
@@ -28,7 +28,7 @@ WORK AT SERVUS:
 - Coaches and mentors a team of 5 university capstone analysts
 
 TECHNICAL SKILLS:
-- BI: custom React + Recharts analytics applications (current), Looker/LookML semantic modeling (prior), Power BI dashboards and DAX (working knowledge), Excel (advanced), KPI development, data storytelling
+- BI: custom React + Recharts analytics applications (current), Looker/LookML semantic modeling, Power BI dashboards and DAX (working knowledge), Excel (advanced), KPI development, data storytelling
 - Data modeling: dimensional modeling (star schema), curated data models, semantic layers, data warehousing
 - SQL: advanced SQL (CTEs, window functions, query optimization), BigQuery, SQL Server, database design
 - Data engineering: ETL/ELT pipelines, data quality assurance, automated validation, data dictionaries, data lineage, data governance
