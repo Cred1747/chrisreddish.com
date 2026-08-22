@@ -47,7 +47,7 @@ RESEARCH & PUBLICATIONS:
 - Published NLP research at the 38th International FLAIRS Conference (peer-reviewed, SCOPUS-indexed): Hagen, L., Hagen, A., Tafmizi, D., Reddish, C., Fox, A., Li, L., & DePaula, N. (2025). Human and AI Alignment on Stance Detection.
 - Trained and fine-tuned ML models (BERT, Logistic Regression, Gradient Boosting, Random Forest) achieving 88%+ classification accuracy on stance detection
 - Research conducted at USF's Big Data Analytics Lab under Professor Loni Hagen
-- Built an AI-generated vs. real image detection classifier: a ResNet-18 ensemble in PyTorch reaching 0.987 macro-F1 against single-model and zero-shot baselines (code: github.com/Cred1747/project2-ai-detection)
+- Built an AI-generated vs. real image detection classifier (CAI 5205 Deep Learning, Summer 2026, two-person project): a Swin + ViT vision-transformer ensemble in PyTorch reaching 0.987 macro-F1 on 152K images against CLIP zero-shot, linear-probe, and single-model baselines; Chris built the Swin fine-tuning path (code: github.com/Cred1747/project2-ai-detection)
 - Also built a multi-label CNN (PyTorch, ResNet-18) for vehicle damage classification, outperforming CLIP zero-shot baselines (macro-F1 0.633)
 - BERTopic tweet explorer visualization is live on this portfolio site
 

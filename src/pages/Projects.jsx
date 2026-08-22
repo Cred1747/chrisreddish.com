@@ -74,9 +74,9 @@ const academicProjects = [
   {
     title: 'AI-Generated vs. Real Image Detection',
     category: 'School',
-    date: '2026',
-    description: 'Built a ResNet-18 ensemble classifier in PyTorch that distinguishes AI-generated images from authentic photographs, reaching 0.987 macro-F1 against single-model and zero-shot baselines.',
-    technologies: ['PyTorch', 'ResNet-18', 'Ensemble Methods', 'Computer Vision', 'Python'],
+    date: 'Summer 2026',
+    description: 'Two-person CAI 5205 Deep Learning project: a Swin + ViT vision-transformer ensemble in PyTorch that labels images as real or AI-generated, reaching 0.987 macro-F1 on a 152K-image dataset against CLIP zero-shot, linear-probe, and single-model baselines. I built the Swin fine-tuning path, with fixed-seed stratified splits and a leakage check shared across the team.',
+    technologies: ['PyTorch', 'Vision Transformers', 'Swin / ViT', 'CLIP', 'Ensemble Methods', 'Python'],
     github: 'https://github.com/Cred1747/project2-ai-detection',
     live: null,
   },
