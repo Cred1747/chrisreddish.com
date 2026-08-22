@@ -6,7 +6,7 @@ const dashboards = [
     title: 'Water Utility Billing & Equity Analytics',
     description: 'RCT-based analysis evaluating discount program effectiveness on payment behavior. Includes demographic equity analysis, affordability burden metrics, and program impact evaluation.',
     icon: BarChart3,
-    tags: ['Looker', 'BigQuery', 'LookML', 'RCT Analysis', 'Equity Analytics'],
+    tags: ['React + Recharts', 'BigQuery', 'SQL', 'RCT Analysis', 'Equity Analytics'],
     highlights: [
       'Control vs Treatment group comparison',
       'Payment behavior before/after enrollment',
@@ -30,7 +30,7 @@ const dashboards = [
     title: 'Tax Lien Portfolio Dashboard',
     description: 'Tracking and analysis of municipal tax lien portfolios across multiple jurisdictions, including aging analysis, collection rates, and property value correlations.',
     icon: Database,
-    tags: ['Financial Analytics', 'Looker', 'Municipal Finance'],
+    tags: ['Financial Analytics', 'React + Recharts', 'Municipal Finance'],
     highlights: [
       'Lien aging buckets',
       'Collection success rates',
@@ -60,7 +60,7 @@ export default function Dashboards() {
         <div className="mb-12">
           <h1 className="text-3xl sm:text-4xl font-bold mb-4">Dashboards & Analytics</h1>
           <p className="text-slate-400 max-w-2xl">
-            I build interactive dashboards and analytics tools for municipal clients using Looker, BigQuery, and custom React applications. 
+            I build cloud data pipelines, interactive dashboards, and analytics tools for external municipal clients on BigQuery, delivered through custom React analytics applications. 
             Here's an overview of the types of solutions I deliver.
           </p>
         </div>

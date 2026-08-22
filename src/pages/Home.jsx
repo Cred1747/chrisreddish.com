@@ -6,20 +6,20 @@ import EmailLink, { EMAIL } from '../components/EmailLink'
 const stats = [
   { value: '✓', label: 'Built AI Chatbots', icon: Brain },
   { value: '✓', label: 'Featured in USF Newsletter', icon: FileText, externalLink: 'https://www.usf.edu/arts-sciences/departments/information/documents/newsletter/si-newsletter-vol4-no1-compressed.pdf' },
-  { value: '100M+', label: 'Rows in Data Pipelines', icon: Database },
+  { value: '180M+', label: 'Records in Multi-City Data Platform', icon: Database },
   { value: '4.0', label: 'USF GPA', icon: TrendingUp },
 ]
 
 const highlights = [
   {
     icon: Database,
-    title: 'Data Modeling & Warehousing',
-    description: 'Dimensional models, semantic layers, and ETL/ELT pipelines processing 100M+ rows with automated quality checks',
+    title: 'Data Engineering & Warehousing',
+    description: 'Cloud data pipelines (ELT), dimensional models, and semantic layers on BigQuery, processing 180M+ records with automated quality checks',
   },
   {
     icon: BarChart3,
     title: 'BI & Dashboards',
-    description: 'Looker and Power BI reporting serving technical and non-technical stakeholders across the U.S.',
+    description: 'Custom React + Recharts analytics apps over BigQuery (replaced Looker at Servus) serving technical and non-technical stakeholders across the U.S.',
   },
   {
     icon: Brain,
@@ -29,11 +29,21 @@ const highlights = [
   {
     icon: Code,
     title: 'Full-Stack Development',
-    description: 'React frontends, Python backends, and cloud-native architectures on GCP',
+    description: 'React frontends, Python backends, and cloud-native deployment (GCP Cloud Run, containers, CI/CD)',
   },
 ]
 
 const liveProjects = [
+  {
+    title: 'Municipal Utility Analytics Suite',
+    emoji: '🏛',
+    description: 'Analytics platform built on public EIA, EPA, and Census data, delivered as an interactive dashboard with a live AI chatbot over a semantic query layer: ask about water rates, electric reliability, and affordability',
+    tags: ['AI Chatbot', 'Claude API', 'Semantic Query Layer', 'EIA Data', 'Recharts'],
+    link: '/utility',
+    github: 'https://github.com/Cred1747/chrisreddish.com',
+    highlight: true,
+    badge: 'Live AI Chatbot',
+  },
   {
     title: 'Hospital Quality Benchmarking',
     emoji: '⚕️',
@@ -43,16 +53,6 @@ const liveProjects = [
     github: 'https://github.com/Cred1747/chrisreddish.com',
     highlight: true,
     badge: 'NEW — Academic Project',
-  },
-  {
-    title: 'Municipal Utility Analytics',
-    emoji: '🏛',
-    description: 'Interactive dashboard with a live AI chatbot — ask questions about water rates, electric reliability, and affordability using real EIA & Bluefield data',
-    tags: ['AI Chatbot', 'Claude API', 'Semantic Query Layer', 'EIA Data', 'Recharts'],
-    link: '/utility',
-    github: 'https://github.com/Cred1747/chrisreddish.com',
-    highlight: true,
-    badge: 'Live AI Chatbot',
   },
   {
     title: 'BERTopic Tweet Explorer',
@@ -85,9 +85,16 @@ export default function Home() {
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
+              <img
+                src="/chris_reddish_headshot.jpg"
+                alt="Chris Reddish"
+                width="112"
+                height="112"
+                className="w-28 h-28 rounded-full object-cover border-2 border-primary-500/50 mb-6"
+              />
               <div className="flex items-center gap-2 text-primary-400 mb-4">
                 <Building2 className="w-5 h-5" />
-                <span className="text-sm font-medium">Data Analyst & Analytics Engineer @ Servus</span>
+                <span className="text-sm font-medium">Data & Analytics Engineer @ Servus</span>
               </div>
               
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
@@ -95,9 +102,11 @@ export default function Home() {
               </h1>
               
               <p className="text-xl text-slate-300 mb-8 leading-relaxed">
-                I build curated data models, dashboards, and AI agents that help
-                organizations make smarter decisions. 8+ years of data reporting
-                and analytics experience. Published NLP researcher pursuing my
+                I build data infrastructure for external municipal clients: cloud
+                data pipelines and warehouses on BigQuery (a 180M+ record multi-city
+                platform), curated data models, dashboards, and AI agents that help
+                cities make smarter decisions. 8+ years of data reporting and
+                analytics experience. Published NLP researcher pursuing my
                 Master's in Data Intelligence.
               </p>
               
@@ -315,8 +324,9 @@ export default function Home() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-3xl font-bold mb-4">Let's Work Together</h2>
           <p className="text-slate-300 mb-8">
-            I'm actively looking for Data Analyst, BI Developer, and Analytics Engineer
-            positions, remote or Tampa-area. Let's chat about how I can help your team.
+            I'm actively looking for Data Engineer, Analytics Engineer, and BI Developer
+            positions, including consulting and client-delivery roles, remote or Tampa-area.
+            Let's chat about how I can help your team.
           </p>
           <EmailLink className="inline-flex items-center gap-2 px-8 py-4 bg-white text-slate-900 font-semibold rounded-lg hover:bg-slate-100 transition-colors">
             Get in Touch

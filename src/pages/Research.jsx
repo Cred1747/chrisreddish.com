@@ -44,6 +44,24 @@ const research = [
 
 const coursework = [
   {
+    code: 'ESI6410',
+    name: 'Optimization Methods with Applications',
+    semester: 'Fall 2026 (in progress)',
+    description: 'Linear, integer, and nonlinear optimization applied to decision, allocation, and planning problems.',
+  },
+  {
+    code: 'ESI6612',
+    name: 'Statistical Foundations of Data Intelligence',
+    semester: 'Fall 2026 (in progress)',
+    description: 'Probability, statistical inference, and modeling foundations underpinning data intelligence.',
+  },
+  {
+    code: 'CAI5845',
+    name: 'Computer Vision',
+    semester: 'Fall 2026 (in progress)',
+    description: 'Image classification and detection with convolutional networks and modern vision models.',
+  },
+  {
     code: 'COP5230',
     name: 'Object-Oriented Programming',
     semester: 'Fall 2025',
@@ -54,12 +72,6 @@ const coursework = [
     name: 'Applied Data Intelligence',
     semester: 'Fall 2025',
     description: 'Statistical modeling, machine learning applications, and business intelligence.',
-  },
-  {
-    code: 'ISM6XXX',
-    name: 'Predictive Analytics',
-    semester: 'Fall 2025',
-    description: 'Machine learning for prediction, model validation, and feature engineering.',
   },
 ]
 

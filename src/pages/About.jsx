@@ -15,9 +15,9 @@ import EmailLink, { EMAIL } from '../components/EmailLink'
 
 const skills = [
   {
-    category: 'BI & Analytics',
-    icon: BarChart3,
-    items: ['Looker / LookML', 'Power BI & DAX', 'Excel (advanced)', 'KPI development', 'Data storytelling', 'Self-service analytics'],
+    category: 'SQL & Data Engineering',
+    icon: Code,
+    items: ['Advanced SQL (CTEs, window functions)', 'BigQuery', 'SQL Server', 'ETL/ELT pipelines', 'Data quality & validation', 'Data dictionaries & lineage'],
   },
   {
     category: 'Data Modeling & Warehousing',
@@ -25,27 +25,28 @@ const skills = [
     items: ['Dimensional modeling (star schema)', 'Curated data models', 'Semantic layers', 'Data warehousing', 'Data architecture'],
   },
   {
-    category: 'SQL & Data Engineering',
-    icon: Code,
-    items: ['Advanced SQL (CTEs, window functions)', 'BigQuery', 'SQL Server', 'ETL/ELT pipelines', 'Data quality & validation', 'Data dictionaries & lineage'],
-  },
-  {
     category: 'Cloud, AI & Programming',
     icon: Cloud,
-    items: ['GCP (BigQuery, Cloud Run)', 'Conversational AI agents', 'NLP (BERT), PyTorch, scikit-learn', 'Python, JavaScript, R', 'Git / CI-CD'],
+    items: ['Cloud data platforms: GCP (BigQuery, Cloud Run, Cloud Storage)', 'Conversational AI agents', 'NLP (BERT), PyTorch, scikit-learn', 'Python, JavaScript, R', 'Git / CI-CD'],
+  },
+  {
+    category: 'BI & Analytics',
+    icon: BarChart3,
+    items: ['Custom React + Recharts analytics apps', 'Looker / LookML (prior)', 'Power BI & DAX', 'Excel (advanced)', 'KPI development', 'Data storytelling', 'Self-service analytics'],
   },
 ]
 
 const experience = [
   {
-    title: 'Data Analyst & Analytics Engineer',
+    title: 'Data & Analytics Engineer',
     company: 'Servus Municipal Finance Analytics',
     period: 'June 2024 - Present',
     location: 'Remote',
     highlights: [
-      'Design and deliver BI solutions end to end: curated data models, reports, and interactive dashboards for municipal clients across the U.S.',
-      'Build data warehousing pipelines processing 100M+ rows into BigQuery with automated data quality checks',
-      'Architect dimensional data models and LookML semantic layers serving technical and non-technical stakeholders',
+      'Serve as primary technical delivery contact for municipal government clients across the U.S., owning end-to-end solutions from source-system ingestion through pipelines, curated data models, dashboards, and production AI applications',
+      'Architected a multi-city data warehouse unifying 180M+ records across nine U.S. cities into standardized dimensional schemas with census enrichment; build BigQuery pipelines with automated data quality checks',
+      'Replaced the Looker BI layer with a custom React + Recharts analytics frontend over BigQuery, removing the third-party BI dependency from client delivery',
+      'Architect dimensional data models and semantic layers in BigQuery serving technical and non-technical stakeholders',
       'Rebuilt a citywide parking revenue model with near-perfect row-level parity, surfacing $59M+ in additional recoverable revenue visibility',
       'Deployed AI conversational analytics on Cloud Run with a Semantic Query Layer of 120+ validated queries',
       'Handle sensitive, person-level financial and demographic data under government privacy requirements',
@@ -65,8 +66,8 @@ const experience = [
   },
   {
     title: 'Department Manager, Staff-Level',
-    company: '14 Years in Retail Operations',
-    period: '2009 - 2023',
+    company: '12 Years in Retail Operations',
+    period: '2011 - 2023',
     location: 'Tampa, FL',
     highlights: [
       'Built operational dashboards and KPI reporting in Excel and Power BI across sales, inventory, labor, and compliance',
@@ -101,11 +102,20 @@ export default function About() {
     <div className="min-h-screen py-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div className="mb-12">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-4">About Me</h1>
-          <div className="flex items-center gap-2 text-slate-400">
-            <MapPin className="w-4 h-4" />
-            Tampa / Riverview, FL
+        <div className="mb-12 flex items-center gap-6">
+          <img
+            src="/chris_reddish_headshot.jpg"
+            alt="Chris Reddish"
+            width="96"
+            height="96"
+            className="w-24 h-24 rounded-full object-cover border-2 border-primary-500/50 flex-shrink-0"
+          />
+          <div>
+            <h1 className="text-3xl sm:text-4xl font-bold mb-4">About Me</h1>
+            <div className="flex items-center gap-2 text-slate-400">
+              <MapPin className="w-4 h-4" />
+              Tampa / Riverview, FL
+            </div>
           </div>
         </div>
 
@@ -113,12 +123,14 @@ export default function About() {
         <section className="mb-16">
           <div className="prose prose-invert max-w-none">
             <p className="text-lg text-slate-300 leading-relaxed mb-6">
-              I'm a Data Analyst & Analytics Engineer at Servus Municipal Finance Analytics
-              with 8+ years of hands-on data reporting and analytics experience. I design
-              and deliver BI solutions end to end: curated data models, data warehousing
-              pipelines, interactive dashboards, and AI agents that help cities make better
-              decisions. I specialize in analytics data modeling for regulated, person-level
-              operational and financial data, where accuracy directly affects individuals.
+              I'm a Data & Analytics Engineer at Servus Municipal Finance Analytics
+              with 8+ years of hands-on data reporting and analytics experience. I build
+              data infrastructure for external municipal clients and deliver it end to end:
+              cloud data pipelines and warehouses on BigQuery (including a 180M+ record
+              multi-city data platform), curated data models, interactive dashboards, and
+              AI agents that help cities make better decisions. I specialize in analytics
+              data modeling for regulated, person-level operational and financial data,
+              where accuracy directly affects individuals.
             </p>
             <p className="text-lg text-slate-300 leading-relaxed mb-6">
               I recently graduated with my Bachelor's in Information Science (Data Science concentration)
@@ -128,7 +140,7 @@ export default function About() {
               38th International FLAIRS Conference.
             </p>
             <p className="text-lg text-slate-300 leading-relaxed">
-              Before pivoting to data science, I spent 14 years in retail operations
+              Before pivoting to data science, I spent 12 years in retail operations
               leadership, building dashboards in Excel and Power BI, leading teams of
               15-25, and managing regulated compliance documentation. That experience
               gave me strong leadership skills, a results-driven mindset, and the ability
@@ -241,7 +253,8 @@ export default function About() {
           <p className="text-sm text-slate-500 mt-4">
             Relevant coursework: Data Warehousing, Database Design, Health Informatics,
             Applied Data Intelligence, Statistical Learning, Predictive Analytics,
-            Intro to AI, Deep Learning
+            Intro to AI, Deep Learning. Currently taking Optimization Methods with
+            Applications, Statistical Foundations of Data Intelligence, and Computer Vision
           </p>
         </section>
 
@@ -250,8 +263,9 @@ export default function About() {
           <Users className="w-10 h-10 text-primary-400 mx-auto mb-4" />
           <h2 className="text-2xl font-bold mb-2">Let's Connect</h2>
           <p className="text-slate-400 mb-6 max-w-md mx-auto">
-            I'm actively seeking Data Analyst, BI Developer, and Analytics Engineer
-            positions, remote or Tampa-area. I'd love to hear about opportunities on your team.
+            I'm actively seeking Data Engineer, Analytics Engineer, and BI Developer
+            positions, including consulting and client-delivery roles, remote or Tampa-area.
+            I'd love to hear about opportunities on your team.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <EmailLink className="inline-flex items-center gap-2 px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-colors">

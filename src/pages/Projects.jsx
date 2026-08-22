@@ -3,14 +3,14 @@ import { ExternalLink, Github, Calendar, GraduationCap, Sparkles, Briefcase } fr
 
 const featuredProjects = [
   {
-    title: 'Bourbon Explorer',
-    emoji: '🥃',
-    category: 'Personal',
-    date: '2024',
-    description: 'An interactive data visualization app for exploring and comparing 1,350+ bourbons. Filter by price, ABV, rating, and distillery. Includes scatter plots, value analysis, and flavor profile breakdowns.',
-    technologies: ['React', 'Recharts', 'Tailwind CSS', 'Data Visualization'],
+    title: 'Municipal Utility Analytics Suite',
+    emoji: '🏛',
+    category: 'Platform Demo',
+    date: '2026',
+    description: 'Analytics platform built on public EIA, EPA, and Census data and delivered as an interactive dashboard with a live AI chatbot over a semantic query layer. Ask about water rates, electric reliability, and affordability.',
+    technologies: ['Semantic Query Layer', 'Claude API', 'React', 'Recharts', 'Public Data'],
     github: 'https://github.com/Cred1747/chrisreddish.com',
-    live: '/bourbon',
+    live: '/utility',
     internal: true,
   },
   {
@@ -24,37 +24,62 @@ const featuredProjects = [
     live: '/bert',
     internal: true,
   },
+  {
+    title: 'Bourbon Explorer',
+    emoji: '🥃',
+    category: 'Personal',
+    date: '2024',
+    description: 'An interactive data visualization app for exploring and comparing 1,350+ bourbons. Filter by price, ABV, rating, and distillery. Includes scatter plots, value analysis, and flavor profile breakdowns.',
+    technologies: ['React', 'Recharts', 'Tailwind CSS', 'Data Visualization'],
+    github: 'https://github.com/Cred1747/chrisreddish.com',
+    live: '/bourbon',
+    internal: true,
+  },
 ]
 
 const workProjects = [
   {
-    title: 'AI Conversational Analytics Agents',
-    description: 'Developed and deployed production chatbot applications on GCP Cloud Run enabling natural language queries against complex municipal datasets for city officials.',
-    technologies: ['Python', 'JavaScript', 'GCP Cloud Run', 'Looker API', 'LLMs'],
-  },
-  {
     title: 'Multi-City Parking Data Platform',
-    description: 'Built ETL pipelines integrating parking violation data across multiple U.S. cities into a unified BigQuery warehouse with standardized schemas and interactive Looker dashboards.',
-    technologies: ['BigQuery', 'LookML', 'ETL', 'Data Modeling', 'Looker'],
+    description: 'Built ELT pipelines integrating parking violation data across nine U.S. cities into a unified BigQuery warehouse: a 180M+ record multi-city merge table (13M+ citation records for a single city) with standardized dimensional schemas, census enrichment, automated quality checks, and interactive client dashboards.',
+    technologies: ['BigQuery', 'SQL', 'Python', 'ELT Pipelines', 'Data Modeling', 'React + Recharts'],
   },
   {
-    title: 'Water Utility Billing & Equity Analytics',
-    description: 'Designed analytical data models merging RCT assignments with billing and payment records. Built equity analysis dashboards and discount program effectiveness visualizations for policy stakeholders.',
-    technologies: ['BigQuery', 'LookML', 'Looker', 'RCT Analysis', 'Data Visualization'],
-  },
-  {
-    title: 'Semantic Query Layer',
-    description: 'Developed a library of 120+ pre-validated analytical query templates for municipal AI agents, enabling natural language data exploration for city officials without SQL knowledge.',
-    technologies: ['LookML', 'BigQuery', 'Python', 'Looker API'],
+    title: 'Looker-to-React Analytics Platform Migration',
+    description: 'Replaced the Looker BI layer with a custom React + Recharts analytics application over BigQuery, rebuilding client dashboards and semantic logic in-house and removing the third-party BI dependency from client delivery.',
+    technologies: ['React', 'Recharts', 'BigQuery', 'SQL', 'Node.js API', 'Platform Migration'],
   },
   {
     title: 'Citywide Parking Revenue Model Rebuild',
     description: 'Independently rebuilt a citywide parking revenue analytics model to reproduce and verify existing output, achieving near-perfect row-level parity and surfacing $59M+ in additional recoverable revenue visibility.',
     technologies: ['BigQuery', 'Advanced SQL', 'Data Validation', 'Data Modeling'],
   },
+  {
+    title: 'Water Utility Billing & Equity Analytics',
+    description: 'Designed analytical data models merging RCT assignments with billing and payment records. Built equity analysis dashboards and discount program effectiveness visualizations for policy stakeholders.',
+    technologies: ['BigQuery', 'SQL', 'React + Recharts', 'RCT Analysis', 'Data Visualization'],
+  },
+  {
+    title: 'AI Conversational Analytics Agents',
+    description: 'Developed and deployed production chatbot applications on GCP Cloud Run enabling natural language queries against complex municipal datasets for city officials.',
+    technologies: ['Python', 'JavaScript', 'GCP Cloud Run', 'BigQuery', 'LLMs'],
+  },
+  {
+    title: 'Semantic Query Layer',
+    description: 'Developed a library of 120+ pre-validated analytical query templates for municipal AI agents, enabling natural language data exploration for city officials without SQL knowledge.',
+    technologies: ['BigQuery', 'SQL', 'Python', 'LLM Agents'],
+  },
 ]
 
 const academicProjects = [
+  {
+    title: 'AI-Generated vs. Real Image Detection',
+    category: 'School',
+    date: '2026',
+    description: 'Built a ResNet-18 ensemble classifier in PyTorch that distinguishes AI-generated images from authentic photographs, reaching 0.987 macro-F1 against single-model and zero-shot baselines.',
+    technologies: ['PyTorch', 'ResNet-18', 'Ensemble Methods', 'Computer Vision', 'Python'],
+    github: 'https://github.com/Cred1747/project2-ai-detection',
+    live: null,
+  },
   {
     title: 'Florida Hospital Quality Benchmarking',
     category: 'School',
@@ -92,9 +117,45 @@ export default function Projects() {
         <div className="mb-12">
           <h1 className="text-3xl sm:text-4xl font-bold mb-4">Projects</h1>
           <p className="text-slate-400 max-w-2xl">
-            A collection of professional, academic, and personal projects — from municipal data pipelines to published NLP research.
+            A collection of professional, academic, and personal projects, from cloud data platforms delivered for municipal clients to published NLP research.
           </p>
         </div>
+
+        {/* Work Projects */}
+        <section className="mb-16">
+          <div className="flex items-center gap-2 mb-6">
+            <Briefcase className="w-5 h-5 text-accent-400" />
+            <h2 className="text-xl font-semibold">Client Delivery — Servus Municipal Finance Analytics</h2>
+          </div>
+          <p className="text-slate-500 text-sm mb-6">
+            Data platform and analytics work delivered for external municipal government clients. Live demos and screenshots are confidential.
+          </p>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            {workProjects.map((project, i) => (
+              <div
+                key={i}
+                className="bg-slate-800/50 rounded-xl border border-slate-700 p-6"
+              >
+                <span className="inline-block px-2 py-0.5 text-xs font-medium rounded mb-2 bg-accent-500/20 text-accent-400">
+                  Work
+                </span>
+                <h3 className="text-lg font-semibold mb-2">{project.title}</h3>
+                <p className="text-slate-400 text-sm mb-4">{project.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {project.technologies.map(tech => (
+                    <span
+                      key={tech}
+                      className="px-2 py-1 text-xs font-medium bg-slate-700/50 text-slate-300 rounded"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
 
         {/* Featured Projects with Live Demos */}
         <section className="mb-16">
@@ -144,42 +205,6 @@ export default function Projects() {
                     <Github className="w-4 h-4" />
                     Code
                   </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Work Projects */}
-        <section className="mb-16">
-          <div className="flex items-center gap-2 mb-6">
-            <Briefcase className="w-5 h-5 text-accent-400" />
-            <h2 className="text-xl font-semibold">Professional Work — Servus Municipal Finance Analytics</h2>
-          </div>
-          <p className="text-slate-500 text-sm mb-6">
-            Client work for municipal governments. Live demos and screenshots are confidential.
-          </p>
-          
-          <div className="grid md:grid-cols-2 gap-6">
-            {workProjects.map((project, i) => (
-              <div
-                key={i}
-                className="bg-slate-800/50 rounded-xl border border-slate-700 p-6"
-              >
-                <span className="inline-block px-2 py-0.5 text-xs font-medium rounded mb-2 bg-accent-500/20 text-accent-400">
-                  Work
-                </span>
-                <h3 className="text-lg font-semibold mb-2">{project.title}</h3>
-                <p className="text-slate-400 text-sm mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map(tech => (
-                    <span
-                      key={tech}
-                      className="px-2 py-1 text-xs font-medium bg-slate-700/50 text-slate-300 rounded"
-                    >
-                      {tech}
-                    </span>
-                  ))}
                 </div>
               </div>
             ))}

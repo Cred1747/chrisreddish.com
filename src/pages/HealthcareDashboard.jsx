@@ -460,7 +460,7 @@ export default function HealthcareDashboard() {
           </div>
           <div style={{ textAlign: "right" }}>
             <div style={{ fontSize: 15, fontWeight: 800, color: C.text }}>Chris Reddish</div>
-            <div style={{ fontSize: 12, color: C.muted }}>Data Analyst & Analytics Engineer</div>
+            <div style={{ fontSize: 12, color: C.muted }}>Data & Analytics Engineer</div>
           </div>
         </div>
         <div style={{ display: "flex", gap: 8, marginTop: 16, marginLeft: 48, alignItems: "center", flexWrap: "wrap" }}>
