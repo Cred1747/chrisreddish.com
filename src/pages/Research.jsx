@@ -40,6 +40,17 @@ const research = [
     topics: ['NLP', 'Stance Detection', 'Transformer Models', 'Social Media Analysis', 'BERTopic'],
     status: 'Ongoing',
   },
+  {
+    title: '25 Years of Digital Government Research: Collaboration and Topics at dg.o (2000 to 2024)',
+    type: 'Co-authored Editorial (in preparation)',
+    lab: 'With Luis F. Luna-Reyes and Loni Hagen',
+    description: 'Built the data pipeline and network analysis for a review of 812 papers from the International Conference on Digital Government Research. Enriched every paper with author affiliations (OpenAlex, Crossref, ROR, DBLP and manual lookups), built co-author and country collaboration networks, and modeled 10 research topics with BERTopic. Published the results as an interactive atlas with maps, topic trends and a searchable paper list.',
+    topics: ['Bibliometrics', 'Network Analysis', 'BERTopic', 'OpenAlex', 'D3.js', 'Data Pipelines'],
+    status: 'In Revision',
+    links: [
+      { label: 'Interactive Atlas', url: 'https://chrisreddish.com/dgo-atlas/' },
+    ],
+  },
 ]
 
 const coursework = [
@@ -83,7 +94,7 @@ export default function Research() {
         <div className="mb-12">
           <h1 className="text-3xl sm:text-4xl font-bold mb-4">Research & Publications</h1>
           <p className="text-slate-400 max-w-2xl">
-            My academic research in NLP and stance detection at USF's Big Data Analytics Lab.
+            My academic research in NLP, stance detection and research network analysis at USF.
           </p>
         </div>
 
@@ -218,7 +229,7 @@ export default function Research() {
           {research.map((item, i) => (
             <div
               key={i}
-              className="bg-slate-800/50 rounded-xl border border-slate-700 p-6 sm:p-8"
+              className="bg-slate-800/50 rounded-xl border border-slate-700 p-6 sm:p-8 mb-6"
             >
               <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
                 <div>
@@ -237,9 +248,11 @@ export default function Research() {
                   <Users className="w-4 h-4" />
                   {item.lab}
                 </div>
-                <div>
-                  Advisor: <span className="text-slate-300">{item.advisor}</span>
-                </div>
+                {item.advisor && (
+                  <div>
+                    Advisor: <span className="text-slate-300">{item.advisor}</span>
+                  </div>
+                )}
               </div>
 
               <p className="text-slate-400 mb-6">{item.description}</p>
@@ -254,6 +267,23 @@ export default function Research() {
                   </span>
                 ))}
               </div>
+
+              {item.links && (
+                <div className="flex flex-wrap gap-3 mt-6">
+                  {item.links.map((link, j) => (
+                    <a
+                      key={j}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2 bg-primary-500/20 hover:bg-primary-500/30 text-primary-400 rounded-lg text-sm transition-colors"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </section>

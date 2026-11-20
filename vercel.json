@@ -1,6 +1,17 @@
 {
   "framework": "vite",
   "rewrites": [
-    { "source": "/((?!api/).*)", "destination": "/index.html" }
+    {
+      "source": "/dgo-atlas",
+      "destination": "/dgo-atlas/index.html"
+    },
+    {
+      "source": "/dgo-atlas/",
+      "destination": "/dgo-atlas/index.html"
+    },
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
   ]
 }
