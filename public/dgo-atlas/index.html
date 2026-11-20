@@ -399,6 +399,23 @@ function linkTip(e) {
     + (tt ? `<br><span class="m">Topics:</span><br>${tt}` : "") + `<br><span class="m">Click to see the papers</span>`;
 }
 
+// Greedy label placement for saved images: biggest first, try right, left, above, below; skip a label that still collides
+function placeLabels(items, W0, H0) {
+  const boxes = [], out = [], hit = (a, b) => a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;
+  items.forEach(it => boxes.push({ x: it.x - it.r, y: it.y - it.r, w: 2 * it.r, h: 2 * it.r }));
+  items.forEach(it => {
+    const w = it.text.length * it.fs * 0.58 + 2, h = it.fs + 2, g = 2;
+    const tries = [[it.x + it.r + g, it.y - h / 2, "start"], [it.x - it.r - g - w, it.y - h / 2, "end"],
+                   [it.x - w / 2, it.y - it.r - g - h, "middle"], [it.x - w / 2, it.y + it.r + g, "middle"]];
+    for (const [bx, by, anchor] of tries) {
+      const b = { x: bx, y: by, w, h };
+      if (bx < 1 || by < 1 || bx + w > W0 - 1 || by + h > H0 - 1 || boxes.some(o => hit(b, o))) continue;
+      boxes.push(b); out.push({ it, x: anchor === "start" ? bx : anchor === "end" ? bx + w : bx + w / 2, y: by + h - 3, anchor }); return;
+    }
+  });
+  return out;
+}
+let EXPORT_LBL = false;   // set while saving the map PNG: full country names, Europe labelled in the inset instead
 function drawMap() {
   const live = S.cross.slice().sort((a, b) => a.w - b.w);
   const focus = st.link ? new Set(st.link) : st.country ? new Set([st.country, ...partners(st.country).map(p => p.id)]) : null;
@@ -422,10 +439,18 @@ function drawMap() {
   gNodes.selectAll("circle").filter(on).raise();
   const crowd = new Set(["BE", "CH", "AT", "DK", "IE", "PT", "LU", "SI", "MT", "HK", "MO"]);
   const top = order.filter(on).slice(0, 22);
-  const lab = order.filter(n => focus ? focus.has(n.id) : on(n) && (k >= 2.5 || (top.includes(n) && !crowd.has(n.id))));
-  gLbl.selectAll("text").data(lab, n => n.id).join("text").attr("class", "lbl")
+  const lab = EXPORT_LBL ? order.filter(n => on(n) && (focus ? focus.has(n.id) : true) && n.region !== "Europe" && (focus || order.filter(on).indexOf(n) < 40))
+    : order.filter(n => focus ? focus.has(n.id) : on(n) && (k >= 2.5 || (top.includes(n) && !crowd.has(n.id))));
+  if (EXPORT_LBL) {
+    const pl2 = placeLabels(lab.map(n => ({ id: n.id, x: n.x, y: n.y, r: rad(n.id), text: n.name, fs: 11 })), W, H);
+    gLbl.selectAll("text").remove();
+    gLbl.selectAll("text").data(pl2).join("text").attr("class", "lbl").attr("x", d => d.x).attr("y", d => d.y)
+      .attr("text-anchor", d => d.anchor).style("font-size", "11px").style("stroke-width", "3px").text(d => d.it.text);
+    return;
+  }
+  gLbl.selectAll("text").data(lab, n => n.it ? "x" + n.it.id : n.id).join("text").attr("class", "lbl").attr("text-anchor", null)
     .attr("x", n => n.x + rad(n.id) / Math.sqrt(k) + 3 / k).attr("y", n => n.y + 4 / k)
-    .style("font-size", (11 / k) + "px").style("stroke-width", (3 / k) + "px").text(n => k >= 2.5 || focus ? n.name : n.id);
+    .style("font-size", (11 / k) + "px").style("stroke-width", (3 / k) + "px").text(n => EXPORT_LBL || k >= 2.5 || focus ? n.name : n.id);
 }
 
 function topicBars(arr, total) {
@@ -707,6 +732,37 @@ function wrapText(ctx, text, maxW) {
   words.forEach(w => { const tr = line ? line + " " + w : w; if (ctx.measureText(tr).width > maxW && line) { lines.push(line); line = w; } else line = tr; });
   if (line) lines.push(line); return lines;
 }
+// Europe inset for the saved map: its own projection, links with both ends in Europe, same circle and line scales
+const EU_BOX = [[-11, 34.5], [32, 66.5]];
+function euBoxOnMain() {
+  const pts = []; for (let i = 0; i <= 10; i++) { const t = i / 10;
+    pts.push(proj([EU_BOX[0][0] + t * (EU_BOX[1][0] - EU_BOX[0][0]), EU_BOX[0][1]]), proj([EU_BOX[0][0] + t * (EU_BOX[1][0] - EU_BOX[0][0]), EU_BOX[1][1]]));
+    pts.push(proj([EU_BOX[0][0], EU_BOX[0][1] + t * (EU_BOX[1][1] - EU_BOX[0][1])]), proj([EU_BOX[1][0], EU_BOX[0][1] + t * (EU_BOX[1][1] - EU_BOX[0][1])])); }
+  const [x0, x1] = d3.extent(pts, p => p[0]), [y0, y1] = d3.extent(pts, p => p[1]); return [x0, y0, x1 - x0, y1 - y0];
+}
+function europeInsetSVG(IW, IH) {
+  const pe = d3.geoMercator().fitExtent([[6, 6], [IW - 6, IH - 6]], { type: "MultiPoint", coordinates: [EU_BOX[0], EU_BOX[1], [EU_BOX[0][0], EU_BOX[1][1]], [EU_BOX[1][0], EU_BOX[0][1]]] })
+    .clipExtent([[0, 0], [IW, IH]]);
+  const path = d3.geoPath(pe), cs = sel => getComputedStyle(document.querySelector(sel));
+  const land = cs("#map path.land"), arcS = css("--link"), hi = css("--hi"), ring = css("--ring"), fg = css("--fg"), bg = css("--surface"), muted = css("--muted");
+  const eu = nodes.filter(n => n.region === "Europe" && S.node[n.id].papers > 0), xy = {}; eu.forEach(n => xy[n.id] = pe([n.lon, n.lat]));
+  const focus = st.link ? new Set(st.link) : st.country ? new Set([st.country, ...partners(st.country).map(p => p.id)]) : null;
+  const hiE = e => isLink(e) || (st.country && (e.s === st.country || e.t === st.country));
+  const arcs = S.cross.filter(e => xy[e.s] && xy[e.t]).sort((a, b) => a.w - b.w).map(e => {
+    const [ax, ay] = xy[e.s], [bx, by] = xy[e.t], dx = bx - ax, dy = by - ay;
+    const op = focus ? (hiE(e) ? 0.95 : 0.07) : 0.3 + 0.55 * Math.min(1, e.w / WMAX_FIXED);
+    return `<path d="M${ax},${ay}Q${(ax + bx) / 2 - dy * 0.18},${(ay + by) / 2 + dx * 0.18} ${bx},${by}" fill="none" stroke="${hiE(e) ? hi : arcS}" stroke-linecap="round" stroke-width="${0.8 + 4.2 * Math.min(1, e.w / WMAX_FIXED)}" stroke-opacity="${op}"/>`; }).join("");
+  const circ = eu.slice().sort((a, b) => S.node[b.id].papers - S.node[a.id].papers).map(n => `<circle cx="${xy[n.id][0]}" cy="${xy[n.id][1]}" r="${rad(n.id) * 0.8}" fill="${REGION[n.region]}" fill-opacity="${focus ? (focus.has(n.id) ? 1 : 0.18) : 1}" stroke="${ring}" stroke-width="1.2"/>`).join("");
+  const order = eu.filter(n => !focus || focus.has(n.id)).sort((a, b) => S.node[b.id].papers - S.node[a.id].papers);
+  const lbl = placeLabels(order.map(n => ({ x: xy[n.id][0], y: xy[n.id][1], r: rad(n.id) * 0.8, text: n.name, fs: 8.5 })), IW, IH)
+    .map(d => `<text x="${d.x}" y="${d.y}" text-anchor="${d.anchor}" font-family="Inter, system-ui, sans-serif" font-size="8.5" font-weight="600" fill="${fg}" stroke="${bg}" stroke-width="2.5" stroke-linejoin="round" paint-order="stroke">${esc(d.it.text)}</text>`).join("");
+  const landP = DATA.land.features.map(f => `<path d="${path(f) || ""}" fill="${land.fill}" stroke="${land.stroke}" stroke-width="0.5"/>`).join("");
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${IW}" height="${IH}" viewBox="0 0 ${IW} ${IH}"><rect width="${IW}" height="${IH}" fill="${bg}"/>${landP}${arcs}${circ}${lbl}<rect x="0.5" y="0.5" width="${IW - 1}" height="${IH - 1}" fill="none" stroke="${muted}" stroke-width="1"/></svg>`;
+}
+async function svgImage(str) {
+  const url = URL.createObjectURL(new Blob([str], { type: "image/svg+xml;charset=utf-8" }));
+  try { return await new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = url; }); } finally { setTimeout(() => URL.revokeObjectURL(url), 1000); }
+}
 async function savePNG(kind) {
   const cfg = {
     map: { svg: "#map", title: "Who writes with whom at dg.o", legend: () => REGIONS.map(r => ({ c: REGION[r], l: r, round: true })),
@@ -719,32 +775,58 @@ async function savePNG(kind) {
   }[kind];
   const root = document.documentElement, prevTheme = root.getAttribute("data-theme");
   root.setAttribute("data-theme", "light"); hideTip();
+  const INSET = kind === "map" && k === 1; EXPORT_LBL = INSET;
   if (kind === "heat") drawHeat(); if (kind === "reg") drawReg(); if (kind === "tr") drawTR(); if (kind === "map") drawMap();
   try {
     const src = document.querySelector(cfg.svg), vb = src.viewBox.baseVal, clone = src.cloneNode(true);
     const a = [src, ...src.querySelectorAll("*")], b = [clone, ...clone.querySelectorAll("*")];
     a.forEach((el, i) => { const cs = getComputedStyle(el); b[i].setAttribute("style", SAVE_PROPS.map(p => `${p}:${cs.getPropertyValue(p)}`).join(";")); });
     clone.setAttribute("xmlns", "http://www.w3.org/2000/svg"); clone.setAttribute("width", vb.width); clone.setAttribute("height", vb.height);
+    if (INSET) { const [bx, by, bw, bh] = euBoxOnMain(), r = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      Object.entries({ x: bx, y: by, width: bw, height: bh, fill: "none", stroke: css("--muted"), "stroke-width": 0.8, "stroke-dasharray": "4 3" }).forEach(([a, v]) => r.setAttribute(a, v));
+      clone.querySelector("g").appendChild(r); }
     const legend = cfg.legend(), bg = css("--surface"), fg = css("--fg"), muted = css("--muted");
-    const S = 2.5, pad = 24, Wc = vb.width + pad * 2, font = '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif';
+    const IW = 340, IH = 340, insW = INSET ? IW + 18 : 0;
+    const SC = 2.5, pad = 24, Wc = vb.width + pad * 2 + insW, font = '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif';
     const meas = document.createElement("canvas").getContext("2d");
     meas.font = `12px ${font}`; const sub = wrapText(meas, filterLine(), Wc - pad * 2), noteL = wrapText(meas, cfg.note, Wc - pad * 2);
     let lx = 0, rows = 1; legend.forEach(it => { const w = 18 + meas.measureText(it.l).width + 16; if (lx + w > Wc - pad * 2) { rows++; lx = 0; } lx += w; });
-    const headH = 24 + 26 + sub.length * 16 + 10, legH = rows * 20 + 8, footH = noteL.length * 16 + 22, Hc = headH + vb.height + legH + footH + pad;
-    const cv = document.createElement("canvas"); cv.width = Math.round(Wc * S); cv.height = Math.round(Hc * S);
-    const ctx = cv.getContext("2d"); ctx.scale(S, S);
+    const keyH = kind === "map" ? 2 * rScale()(PMAX) + 34 : 0;
+    const headH = 24 + 26 + sub.length * 16 + 10, legH = rows * 20 + 8 + keyH, footH = noteL.length * 16 + 22, Hc = headH + vb.height + legH + footH + pad;
+    const cv = document.createElement("canvas"); cv.width = Math.round(Wc * SC); cv.height = Math.round(Hc * SC);
+    const ctx = cv.getContext("2d"); ctx.scale(SC, SC);
     ctx.fillStyle = bg; ctx.fillRect(0, 0, Wc, Hc);
     ctx.fillStyle = fg; ctx.font = `600 20px ${font}`; ctx.fillText(cfg.title, pad, 24 + 18);
     ctx.fillStyle = muted; ctx.font = `12px ${font}`; sub.forEach((l, i) => ctx.fillText(l, pad, 24 + 26 + 12 + i * 16));
     const url = URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(clone)], { type: "image/svg+xml;charset=utf-8" }));
     const img = await new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = url; });
     ctx.drawImage(img, pad, headH, vb.width, vb.height); URL.revokeObjectURL(url);
+    if (INSET) {
+      const ix = pad + vb.width + 18, iy = headH + Math.max(18, (vb.height - IH) / 2);
+      ctx.fillStyle = muted; ctx.font = `12px ${font}`; ctx.fillText("Europe (links within Europe)", ix, iy - 6);
+      ctx.drawImage(await svgImage(europeInsetSVG(IW, IH)), ix, iy, IW, IH);
+    }
     let x = pad, y = headH + vb.height + 14; ctx.font = `12px ${font}`;
     legend.forEach(it => {
       const w = 18 + ctx.measureText(it.l).width + 16; if (x + w > Wc - pad) { x = pad; y += 20; }
       ctx.fillStyle = it.c; ctx.beginPath(); if (it.round) ctx.arc(x + 5, y - 4, 5, 0, Math.PI * 2); else ctx.rect(x, y - 9, 10, 10); ctx.fill();
       ctx.fillStyle = fg; ctx.fillText(it.l, x + 16, y); x += w;
     });
+    if (kind === "map") {   // line-width and circle-size keys, same scales as the map
+      const rMax = rScale()(PMAX), base = y + 22 + 2 * rMax; let kx = pad;
+      ctx.fillStyle = fg; ctx.font = `600 12px ${font}`; ctx.fillText("Link between countries", kx, y + 22); ctx.font = `12px ${font}`;
+      [1, 6, 12].forEach((w, i) => { const ly = y + 40 + i * 16; ctx.strokeStyle = css("--link"); ctx.globalAlpha = 0.3 + 0.55 * Math.min(1, w / WMAX_FIXED);
+        ctx.lineWidth = 0.8 + 4.2 * Math.min(1, w / WMAX_FIXED); ctx.lineCap = "round"; ctx.beginPath(); ctx.moveTo(kx, ly - 4); ctx.lineTo(kx + 34, ly - 4); ctx.stroke();
+        ctx.globalAlpha = 1; ctx.fillStyle = fg; ctx.fillText(pl(w, "paper"), kx + 44, ly); });
+      kx += 190; ctx.font = `600 12px ${font}`; ctx.fillText("Country size", kx, y + 22); ctx.font = `12px ${font}`;
+      let lastY = y + 22;
+      [PMAX, 50, 10].forEach(v => { const r = rScale()(v), cy = base - r + 6, top = cy - r; ctx.strokeStyle = muted; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.arc(kx + rMax, cy, r, 0, Math.PI * 2); ctx.stroke();
+        const ty = Math.max(top + 4, lastY + 15); lastY = ty;
+        ctx.beginPath(); ctx.moveTo(kx + rMax, top); ctx.lineTo(kx + 2 * rMax + 8, ty - 4); ctx.stroke();
+        ctx.fillStyle = fg; ctx.fillText(pl(v, "paper"), kx + 2 * rMax + 12, ty); });
+      y += keyH;
+    }
     ctx.fillStyle = muted; y += 24;
     noteL.forEach((l, i) => ctx.fillText(l, pad, y + i * 16));
     ctx.font = `11px ${font}`; ctx.fillText("Source: DGRL v2.1 dg.o corpus (812 papers); affiliations from OpenAlex, Crossref, ROR and manual lookups; k=10 BERTopic topics.", pad, y + noteL.length * 16 + 2);
@@ -761,6 +843,7 @@ async function savePNG(kind) {
     }
   } catch (e) { toast("Could not create the image in this view. Open the downloaded HTML file in a browser and try again."); }
   finally {
+    EXPORT_LBL = false;
     if (prevTheme == null) root.removeAttribute("data-theme"); else root.setAttribute("data-theme", prevTheme);
     if (kind === "heat") drawHeat(); if (kind === "reg") drawReg(); if (kind === "tr") drawTR(); if (kind === "map") drawMap();
   }
